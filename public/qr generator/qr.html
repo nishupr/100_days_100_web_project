@@ -20,7 +20,7 @@
                 <p id="enter-a-link-or-text" class="subhead">Create and customize your QR code</p>
 
 
-                <div class="card input-card">
+                <div class="card glass-card input-card">
                     <div class="input-section">
                         <select id="qr-type">
                             <option value="text">Text</option>
@@ -39,15 +39,15 @@
                             </select>
                         </div>
                         <div id="vcard-inputs" style="display: none;">
-                            <input type="text" id="vcard-name" placeholder="Full Name">
-                            <input type="text" id="vcard-phone" placeholder="Phone">
-                            <input type="text" id="vcard-email" placeholder="Email">
-                            <input type="text" id="vcard-website" placeholder="Website">
+                            <input type="text" class="glass-input" id="vcard-name" placeholder="Full Name">
+                            <input type="text" class="glass-input" id="vcard-phone" placeholder="Phone">
+                            <input type="text" class="glass-input" id="vcard-email" placeholder="Email">
+                            <input type="text" class="glass-input" id="vcard-website" placeholder="Website">
                         </div>
                     </div>
                 </div>
 
-                <div class="card options-card">
+                <div class="card glass-card options-card">
                     <h2>Customize Your QR Code</h2>
                     <div class="qr-options">
                         <div class="option">
@@ -55,12 +55,13 @@
                             <input type="color" id="qr-color" value="#000000">
                         </div>
                         <div class="option">
-                            <label for="qr-shape">Shape:</label>
-                            <select id="qr-shape">
+
+                            <label for="qr-shape" class="glass-select">
+                                <select id="qr-shape" >
                                 <option value="square">Square</option>
                                 <option value="rounded">Rounded</option>
                                 <option value="dots">Dots</option>
-                            </select>
+                                </select>
                         </div>
                         <div class="option">
                             <label for="error-correction">Error Correction:</label>
@@ -81,7 +82,7 @@
 
             <button class="submit"><i class="fas fa-qrcode"></i> Generate QR Code</button>
             <div class="panel panel-right">
-                <div class="card result-card">
+                <div class="card glass-card result-card">
                     <div class="image">
                         <div id="qrcode"></div>
                     </div>
@@ -91,7 +92,7 @@
                     </div>
                 </div>
 
-                <div id="qr-reader" class="card" style="display: none;"></div>
+                <div id="qr-reader" class="card glass-card" style="display: none;"></div>
                 <div id="qr-reader-results"></div>
             </div>
 

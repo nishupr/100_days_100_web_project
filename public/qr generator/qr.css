@@ -24,8 +24,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: var(--background-light);
-    color: var(--text-light);
+    background: linear-gradient(135deg, #0f172a, #1e293b, #111827);
+    color: #f8fafc;
     transition: background-color 0.3s, color 0.3s;
     padding: 20px;
 }
@@ -54,13 +54,44 @@ body.dark-mode {
     gap: 20px;
 }
 
-.card {
-    background-color: var(--card-light);
-    border-radius: 15px;
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 6px var(--shadow-light);
-    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-3px);
+}
+
+.glass-input,
+.glass-select {
+    width: 100%;
+    padding: 11px 14px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.glass-input:focus,
+.glass-select:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+}
+
+.glass-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .dark-mode .card {
@@ -71,7 +102,9 @@ body.dark-mode {
 .head {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    background: linear-gradient(135deg, #a78bfa, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .subhead {
@@ -97,7 +130,7 @@ select {
 }
 
 button {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -112,7 +145,7 @@ button {
 }
 
 button:hover {
-    background-color: #3a7bc8;
+    background: linear-gradient(135deg, #6d28d9, #1d4ed8);
     transform: translateY(-2px);
 }
 
