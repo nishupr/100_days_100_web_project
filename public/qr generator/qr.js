@@ -79,21 +79,21 @@ function generateQRCode() {
 function applyQRCodeStyle() {
     const modules = qrcodeDiv.getElementsByTagName('img')[0];
     modules.style.borderRadius = qrShape.value === 'rounded' ? '15px' : '0';
-    
+
     if (qrShape.value === 'dots') {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = modules.width;
         canvas.height = modules.height;
         ctx.drawImage(modules, 0, 0);
-        
+
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const data = imageData.data;
-        
+
         for (let i = 0; i < data.length; i += 4) {
             const x = (i / 4) % canvas.width;
             const y = Math.floor((i / 4) / canvas.width);
-            
+
             if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 0) {
                 ctx.beginPath();
                 ctx.arc(x + 0.5, y + 0.5, 0.4, 0, Math.PI * 2);
@@ -101,7 +101,7 @@ function applyQRCodeStyle() {
                 ctx.fill();
             }
         }
-        
+
         modules.src = canvas.toDataURL();
     }
 }
@@ -110,23 +110,26 @@ function addLogoToQRCode() {
     const file = logoUpload.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             const logo = new Image();
             logo.src = e.target.result;
-            logo.onload = function() {
+            logo.onload = function () {
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 const qrImage = qrcodeDiv.getElementsByTagName('img')[0];
-                
+
                 canvas.width = qrImage.width;
                 canvas.height = qrImage.height;
                 ctx.drawImage(qrImage, 0, 0);
-                
+
                 const logoSize = canvas.width * 0.2;
-                const logoX = (canvas.width - logoSize) / 2;
-                const logoY = (canvas.height - logoSize) / 2;
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+
+                const logoX = centerX - (logoSize / 2);
+                const logoY = centerY - (logoSize / 2);
                 ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
-                
+
                 qrImage.src = canvas.toDataURL();
             };
         };
@@ -162,7 +165,7 @@ errorCorrection.addEventListener('change', scheduleGenerate);
 logoUpload.addEventListener('change', scheduleGenerate);
 
 
-downloadBtn.addEventListener('click', function() {
+downloadBtn.addEventListener('click', function () {
     if (qrcode) {
         const qrImage = qrcodeDiv.getElementsByTagName('img')[0];
         const link = document.createElement('a');
@@ -172,12 +175,12 @@ downloadBtn.addEventListener('click', function() {
     }
 });
 
-scanBtn.addEventListener('click', function() {
+scanBtn.addEventListener('click', function () {
     if (qrReader.style.display === 'none') {
         qrReader.style.display = 'block';
         const html5QrCode = new Html5Qrcode("qr-reader");
         const qrBoxSize = 250;
-        
+
         html5QrCode.start(
             { facingMode: "environment" },
             {
@@ -197,7 +200,7 @@ scanBtn.addEventListener('click', function() {
     }
 });
 
-toggleThemeBtn.addEventListener('click', function() {
+toggleThemeBtn.addEventListener('click', function () {
     document.body.classList.toggle('dark-mode');
 });
 
