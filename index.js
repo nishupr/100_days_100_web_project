@@ -19,6 +19,7 @@ async function fetchRepoStats() {
         const forkEl = document.getElementById('forkCount');
         const issueEl = document.getElementById('issueCount');
         const prEl = document.getElementById('prCount');
+        
 
         if (starEl) starEl.textContent = repoData.stargazers_count.toLocaleString();
         if (forkEl) forkEl.textContent = repoData.forks_count.toLocaleString();
@@ -368,6 +369,21 @@ if (searchInput) {
         }
     });
 }
+// Word and Character Count
+        const inputField = document.querySelector('input'); // Use the correct selector for the search bar
+        const wordDisplay = document.getElementById('wordCount');
+        const charDisplay = document.getElementById('charCount');
+
+inputField.addEventListener('input', () => {
+        const value = inputField.value.trim();
+        
+        // Count characters
+        charDisplay.innerText = value.length;
+
+        // Count words
+        const words = value ? value.split(/\s+/).length : 0;
+        wordDisplay.innerText = words;
+    });
 
 // Scroll to Top Button
 const scrollBtn = document.getElementById('scrollBtn');
