@@ -92,4 +92,4 @@
 
 - name: "mentor:username"
   color: "f39c12"
-  description: "Template label for mentor attribution; replace with mentor:actual-username if needed"
+  description: "Placeholder template; delete after creating actual mentor:<username> labels"
