@@ -92,4 +92,4 @@
 
 - name: "mentor:username"
   color: "f39c12"
-  description: "Mentor attribution"
+  description: "Template label for mentor attribution; replace with mentor:actual-username if needed"
