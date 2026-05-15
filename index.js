@@ -306,6 +306,7 @@ function fillTable() {
         ["Day 112", "Nykaa Clone Website", "./public/Nykaa-clone/index.html"],
         ["Day 113", "CPU Scheduler", "./public/CpuScheduler/index.html"],
      ["Day 114","EchoNotes","./public/EchoNotes/index.html"]
+        
     ];
 
     const tbody = document.getElementById('tableBody');
