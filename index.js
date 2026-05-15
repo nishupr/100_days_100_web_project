@@ -115,7 +115,7 @@ const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('i');
 
 // Check for saved theme preference or default to dark mode
-const currentTheme = window.theme || 'dark';
+const currentTheme = localStorage.getItem('theme') || 'dark';
 if (currentTheme === 'light') {
     document.body.classList.add('light-mode');
     themeIcon.classList.remove('fa-moon');
@@ -124,15 +124,15 @@ if (currentTheme === 'light') {
 
 themeToggle.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
-    
+
     if (document.body.classList.contains('light-mode')) {
         themeIcon.classList.remove('fa-moon');
         themeIcon.classList.add('fa-sun');
-        window.theme = 'light';
+        localStorage.setItem('theme', 'light');
     } else {
         themeIcon.classList.remove('fa-sun');
         themeIcon.classList.add('fa-moon');
-        window.theme = 'dark';
+        localStorage.setItem('theme', 'dark');
     }
 });
 
@@ -143,13 +143,13 @@ function updateNavbar() {
     const username = window.username || null;
     const isRoot = !window.location.pathname.includes('/contributors/');
     const basePath = isRoot ? '' : '../';
-    
+
     const themeButton = `
         <button id="themeToggle" class="button" title="Toggle Theme">
             <i class="fas ${document.body.classList.contains('light-mode') ? 'fa-sun' : 'fa-moon'}"></i>
         </button>
     `;
-    
+
     if (username) {
         buttons.innerHTML = `
         <span class="welcome-text">Welcome, ${username}</span>
@@ -169,29 +169,29 @@ function updateNavbar() {
         <a class="button login-btn" href="${basePath}public/Login.html">Log in</a>
         ${themeButton}`;
     }
-    
+
     // Re-attach theme toggle event listener
     const newThemeToggle = document.getElementById('themeToggle');
     const newThemeIcon = newThemeToggle.querySelector('i');
-    
+
     newThemeToggle.addEventListener('click', () => {
         document.body.classList.toggle('light-mode');
-        
+
         if (document.body.classList.contains('light-mode')) {
             newThemeIcon.classList.remove('fa-moon');
             newThemeIcon.classList.add('fa-sun');
-            window.theme = 'light';
+            localStorage.setItem('theme', 'light');
         } else {
             newThemeIcon.classList.remove('fa-sun');
             newThemeIcon.classList.add('fa-moon');
-            window.theme = 'dark';
+            localStorage.setItem('theme', 'dark');
         }
     });
 }
 
 // Populate the table with project data
 function fillTable() {
-   const data = [
+    const data = [
         ["Day 1", "To-Do List", "./public/TO_DO_LIST/todolist.html"],
         ["Day 2", "Digital Clock", "./public/digital_clock/digitalclock.html"],
         ["Day 3", "Indian Flag", "./public/indianflag/flag.html"],
@@ -305,11 +305,10 @@ function fillTable() {
         ["Day 111", "Whack-a-Mole Game", "./public/Whack-a-Mole Game/index.html"],
         ["Day 112", "Nykaa Clone Website", "./public/Nykaa-clone/index.html"],
         ["Day 113", "CPU Scheduler", "./public/CpuScheduler/index.html"],
-        ["Day 114","EchoNotes","./public/EchoNotes/index.html"],
+        ["Day 114", "EchoNotes", "./public/EchoNotes/index.html"],
         ["Day 115", "Event Registration System", "https://event-registration-system-w10a.onrender.com/"],
-        ["Day 116", "AI Image Classifier", "/public/AI Image CLassifier/index.html"]];
-    
-
+        ["Day 116", "AI Image Classifier", "/public/AI Image CLassifier/index.html"]
+    ];
 
     const tbody = document.getElementById('tableBody');
 
