@@ -423,7 +423,7 @@ if (host) {
       chromaticAberration: 0,
       dither: 0,
       curvature: 0.1,
-      tint: '#A7EF9E',
+      tint: '#38bdf8',
       mouseReact: true,
       mouseStrength: 0.5,
       pageLoadAnimation: true,
