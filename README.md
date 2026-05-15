@@ -19,7 +19,7 @@
 
 ## 🌟 About This Project
 
-Welcome to **100 Days 100 Web Projects**! This is a comprehensive collection of **112+ web development projects** ranging from beginner to intermediate level. Our goal is to help developers learn and practice web development through hands-on projects using various technologies.
+Welcome to **100 Days 100 Web Projects**! This is a comprehensive collection of **120+ web development projects** ranging from beginner to intermediate level. Our goal is to help developers learn and practice web development through hands-on projects using various technologies.
 
 ### 🎯 What You'll Find Here:
 - **Frontend Projects**: HTML, CSS, JavaScript, React, Vue.js
@@ -51,7 +51,7 @@ The website features:
 - Beautiful dark/light theme toggle
 - Responsive design for all devices
 
-## 📚 All Projects (112 Total)
+## 📚 All Projects (120 Total)
 
 <div align="center">
 
@@ -174,6 +174,14 @@ The website features:
 | 110 | CRYPTOSHOW | HTML, CSS, JS | 💰 Crypto | [View Demo](https://100-days-100-web-project.vercel.app/) |
 | 111 | Whack-a-Mole Game | HTML, CSS, JS | 🎮 Game | [View Demo](https://100-days-100-web-project.vercel.app/) |
 | 112 | Nykaa Clone | HTML, CSS, JS | 💄 Clone | [View Demo](https://100-days-100-web-project.vercel.app/) |
+| 113 | CPU Scheduler | HTML, CSS, JS | 💻 Utility | [View Demo](https://100-days-100-web-project.vercel.app/) |
+| 114 | EchoNotes | HTML, CSS, JS | 📝 App | [View Demo](https://100-days-100-web-project.vercel.app/) |
+| 115 | Buttons UI Page | HTML, CSS, JS | 🎨 UI Component | [View Demo](https://100-days-100-web-project.vercel.app/) |
+| 116 | Color Palette Generator | HTML, CSS, JS | 🎨 Utility | [View Demo](https://100-days-100-web-project.vercel.app/) |
+| 117 | Color Picker | HTML, CSS, JS | 🎨 Utility | [View Demo](https://100-days-100-web-project.vercel.app/) |
+| 118 | Countdown Timer | HTML, CSS, JS | ⏰ Widget | [View Demo](https://100-days-100-web-project.vercel.app/) |
+| 119 | Cryptocurrency Calculator | HTML, CSS, JS | 💰 Finance | [View Demo](https://100-days-100-web-project.vercel.app/) |
+| 120 | Currency Converter | HTML, CSS, JS | 💱 Finance | [View Demo](https://100-days-100-web-project.vercel.app/) |
 
 ### 📊 Project Categories:
 - 🎮 **Games**: 25+ interactive games and puzzles
@@ -238,7 +246,7 @@ The easiest way to explore all projects is through our **live website**:
 │   ├── TO_DO_LIST/       # Day 1: Todo List
 │   ├── digital_clock/    # Day 2: Digital Clock
 │   ├── snake_game/       # Day 29: Snake Game
-│   └── ...               # 112+ projects
+│   └── ...               # 120+ projects
 ├── contributors/          # Contributors page
 ├── vercel.json           # Deployment configuration
 └── README.md             # You are here!

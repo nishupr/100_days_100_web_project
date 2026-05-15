@@ -305,7 +305,13 @@ function fillTable() {
         ["Day 111", "Whack-a-Mole Game", "./public/Whack-a-Mole Game/index.html"],
         ["Day 112", "Nykaa Clone Website", "./public/Nykaa-clone/index.html"],
         ["Day 113", "CPU Scheduler", "./public/CpuScheduler/index.html"],
-     ["Day 114","EchoNotes","./public/EchoNotes/index.html"]
+        ["Day 114", "EchoNotes", "./public/EchoNotes/index.html"],
+        ["Day 115", "Buttons UI Page", "./public/ButtonsUIPage/index.html"],
+        ["Day 116", "Color Palette Generator", "./public/color-palette-generator/index.html"],
+        ["Day 117", "Color Picker", "./public/color_picker/index.html"],
+        ["Day 118", "Countdown Timer", "./public/CountDown Timer/index.html"],
+        ["Day 119", "Cryptocurrency Calculator", "./public/Cryptocurrency-Calculator/index.html"],
+        ["Day 120", "Currency Converter", "./public/currency_converter/index.html"]
     ];
 
     const tbody = document.getElementById('tableBody');
