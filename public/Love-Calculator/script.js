@@ -1,16 +1,3 @@
-// Import and initialize the Appwrite client
-const client = new Appwrite.Client();
-
-client
-    .setEndpoint("https://cloud.appwrite.io/v1") // Replace with your Appwrite endpoint
-    .setProject("6780f44100185074ad33"); // Replace with your project ID
-
-// Initialize the Databases module
-const databases = new Appwrite.Databases(client);
-
-// Define Database and Collection IDs
-const databaseId = "6780f5140020681e525e"; // Replace with your Appwrite database ID
-const collectionId = "6780f564000eb2946fc7"; // Replace with your Appwrite collection ID
 
 window.onload = function () {
     const button = document.getElementById("calculate");
@@ -20,10 +7,10 @@ window.onload = function () {
 document.getElementById("reset").addEventListener("click", function() {
     document.getElementById("fname").value = "";
     document.getElementById("cname").value = "";
-    document.getElementById("result-message").innerHTML = "";
-    document.getElementById("result-percentage").innerHTML = "";
+    document.getElementById("result-message").textContent = "";
+    document.getElementById("result-percentage").textContent = "";
     document.getElementById("calculate").classList.remove("hidden");
-    document.getElementById("reset").style.display = "none";
+    document.getElementById("reset").classList.add("hidden");
 });
 
 function calculateLove() {
@@ -53,12 +40,16 @@ function calculateLove() {
         else if (loveIndex <= 90) { emoji = "💕"; msg = "Great match!"; }
         else { emoji = "❤️‍🔥"; msg = "Soulmates!"; }
 
-        document.getElementById("result-message").innerHTML = 
-            `${emoji} <strong>${loveIndex}%</strong> ${emoji}`;
-        document.getElementById("result-percentage").innerHTML = 
-            `${yourName} & ${crushName} — ${msg}`;
+        document.getElementById("result-message").textContent = 
+        `${emoji} ${loveIndex}% ${emoji}`;
+        document.getElementById("result-percentage").textContent = 
+        `${yourName} & ${crushName} — ${msg}`;
 
         document.getElementById("calculate").classList.add("hidden");
-        document.getElementById("reset").style.display = "block";
+        document.getElementById("reset").classList.remove("hidden");
+    } else{
+        document.getElementById("result-message").textContent = 
+            "Please enter both names!";
     }
+
 }
