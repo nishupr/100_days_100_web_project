@@ -20,9 +20,9 @@ let realtimeTimer = null;
 
 const themeColors = {
     aurora: '#a78bfa',
-    neon:   '#00ff88',
-    dark:   '#1a1a1a',
-    candy:  '#e91e8c'
+    neon: '#00ff88',
+    dark: '#1a1a1a',
+    candy: '#e91e8c'
 };
 
 let activeThemeColor = '#a78bfa'; // default aurora
@@ -33,7 +33,10 @@ themeBtns.forEach(btn => {
         activeThemeColor = themeColors[theme];
         themeBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        generateQRCode(); // re-renders QR with new color only
+        if (typeof gsap !== 'undefined') {
+            gsap.to('.blob', { scale: 1.15, duration: 0.4, yoyo: true, repeat: 1, ease: 'power2.inOut' });
+        }
+        generateQRCode();
     });
 });
 function updateInputFields() {
@@ -82,17 +85,26 @@ function generateQRCode() {
     }
 
     if (data) {
-qrcode = new QRCode(qrcodeDiv, {
-    text: data,
-    width: 200,
-    height: 200,
-    colorDark: activeThemeColor || qrColor.value,
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel[errorCorrection.value]
-});
+        qrcode = new QRCode(qrcodeDiv, {
+            text: data,
+            width: 200,
+            height: 200,
+            colorDark: activeThemeColor || qrColor.value,
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel[errorCorrection.value]
+        });
 
-        applyQRCodeStyle();
-        addLogoToQRCode();
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo(qrcodeDiv,
+                { scale: 0.85, opacity: 0 },
+                { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }
+            );
+        }
+
+        setTimeout(() => {
+            applyQRCodeStyle();
+            addLogoToQRCode();
+        }, 50);
     }
 }
 
@@ -192,12 +204,19 @@ downloadBtn.addEventListener('click', function () {
         link.download = 'qrcode.png';
         link.href = qrImage.src;
         link.click();
+
+        if (typeof gsap !== 'undefined') {
+            gsap.to(downloadBtn, { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 });
+        }
     }
 });
 
 scanBtn.addEventListener('click', function () {
     if (qrReader.style.display === 'none') {
         qrReader.style.display = 'block';
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo(qrReader, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3 });
+        }
         const html5QrCode = new Html5Qrcode("qr-reader");
         const qrBoxSize = 250;
 
@@ -225,3 +244,22 @@ toggleThemeBtn.addEventListener('click', function () {
 });
 
 updateInputFields();
+window.addEventListener('DOMContentLoaded', () => {
+    if (typeof gsap !== 'undefined') {
+        gsap.from('.glass-card', {
+            opacity: 0,
+            y: 30,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power3.out',
+            delay: 0.1
+        });
+        gsap.from('.head, .subhead', {
+            opacity: 0,
+            y: -20,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: 'power2.out'
+        });
+    }
+});
