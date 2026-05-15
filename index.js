@@ -335,7 +335,7 @@ function fillTable() {
         ["Day 113", "CPU Scheduler", "./public/CpuScheduler/index.html"],
         ["Day 114", "EchoNotes", "./public/EchoNotes/index.html"],
         ["Day 115", "Event Registration System", "https://event-registration-system-w10a.onrender.com/"],
-        ["Day 116", "AI Image Classifier", "/public/AI Image CLassifier/index.html"]
+        ["Day 116", "AI Image Classifier", "./public/AI Image Classifier/index.html"]
     ];
     
 
