@@ -8,6 +8,7 @@ const addBox = document.querySelector(".add-box"),
   fontTag = popupBox.querySelector(".font select"),
   passwordTag = popupBox.querySelector(".password input"),
   addBtn = popupBox.querySelector("button"),
+  clearNotesBtn = document.querySelector(".clear-notes"),
   searchInput = document.getElementById("search-input");
 
 const months = ["January", "February", "March", "April", "May", "June", "July",
@@ -64,6 +65,7 @@ function getVisibleNotes() {
 
 function showNotes(filteredNotes = getVisibleNotes()) {
   document.querySelectorAll(".note").forEach(li => li.remove());
+  clearNotesBtn.disabled = notes.length === 0;
 
   filteredNotes.forEach(({ note, index }) => {
     const isLocked = note.password && !note.isUnlocked;
@@ -107,6 +109,18 @@ function showNotes(filteredNotes = getVisibleNotes()) {
 addBox.addEventListener("click", () => openNoteForm("Add a new note", "Add Note"));
 closeIcon.addEventListener("click", resetForm);
 searchInput.addEventListener("input", () => showNotes());
+clearNotesBtn.addEventListener("click", () => {
+  if(notes.length === 0) return;
+
+  const shouldClear = confirm("Delete all saved notes? This cannot be undone.");
+
+  if(shouldClear) {
+    notes = [];
+    localStorage.removeItem("notes");
+    searchInput.value = "";
+    showNotes();
+  }
+});
 
 function showMenu(elem) {
   elem.parentElement.classList.add("show");

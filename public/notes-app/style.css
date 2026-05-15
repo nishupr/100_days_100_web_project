@@ -65,7 +65,15 @@ h1 {
 
 .search-bar {
   position: relative;
-  flex: 0 1 420px;
+  flex: 1 1 280px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex: 0 1 560px;
 }
 
 .search-bar i {
@@ -104,6 +112,36 @@ form :where(input, textarea)::placeholder {
 form :where(input, textarea, select):focus {
   border-color: rgba(79, 209, 197, 0.78);
   box-shadow: 0 0 0 4px rgba(79, 209, 197, 0.12);
+}
+
+.clear-notes {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 132px;
+  height: 50px;
+  padding: 0 16px;
+  color: #fecdd3;
+  background: rgba(251, 113, 133, 0.08);
+  border: 1px solid rgba(251, 113, 133, 0.28);
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.clear-notes:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: rgba(251, 113, 133, 0.14);
+  border-color: rgba(251, 113, 133, 0.5);
+}
+
+.clear-notes:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
 }
 
 .wrapper {
@@ -475,8 +513,14 @@ form button:hover {
     gap: 18px;
   }
 
-  .search-bar {
+  .header-actions {
+    align-items: stretch;
     flex-basis: auto;
+    flex-direction: column;
+  }
+
+  .clear-notes {
+    width: 100%;
   }
 }
 
