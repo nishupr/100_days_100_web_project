@@ -191,6 +191,7 @@ function updateNavbar() {
 let currentPage = 1;
 const itemsPerPage = 10;
 let projectData = [];
+let filteredProjectData = [];
 
 // Populate the table with project data
 
@@ -314,13 +315,10 @@ function fillTable() {
         ["Day 116", "AI Image Classifier", "/public/AI Image CLassifier/index.html"],
         ["Day 117", "ZEN TIMER", "./public/ZEN_TIMER/index.html"],
     ];
-
-       
-    
-
- 
-
     const tbody = document.getElementById('tableBody');
+
+    filteredProjectData = [...projectData];
+    currentPage = 1;
 
 
     renderTable();
@@ -335,7 +333,7 @@ function renderTable() {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
-    const paginatedData = projectData.slice(startIndex, endIndex);
+    const paginatedData = filteredProjectData.slice(startIndex, endIndex);
 
     paginatedData.forEach(e => {
         const row = document.createElement('tr');
@@ -368,7 +366,7 @@ function createPagination() {
 
     paginationContainer.innerHTML = '';
 
-    const totalPages = Math.ceil(projectData.length / itemsPerPage);
+    const totalPages = Math.max(1, Math.ceil(filteredProjectData.length / itemsPerPage));
 
     // Previous Button
     const prevBtn = document.createElement('button');
@@ -408,22 +406,19 @@ function createPagination() {
 function filterProjects() {
     const input = document.getElementById('searchInput');
     const filter = input.value.toLowerCase();
-    const rows = document.querySelector('tbody').querySelectorAll('tr');
-    let hasResults = false;
-
-    rows.forEach(row => {
-        const projectName = row.querySelector('.project-name')?.innerText.toLowerCase();
-
-        if (projectName && projectName.includes(filter)) {
-            row.style.display = '';
-            hasResults = true;
-        } else {
-            row.style.display = 'none';
-        }
+    filteredProjectData = projectData.filter(project => {
+        const day = (project[0] || '').toLowerCase();
+        const name = (project[1] || '').toLowerCase();
+        const link = (project[2] || '').toLowerCase();
+        return day.includes(filter) || name.includes(filter) || link.includes(filter);
     });
 
+    currentPage = 1;
+    renderTable();
+    createPagination();
+
     const noProjectsMessage = document.getElementById('no-projects');
-    if (hasResults) {
+    if (filteredProjectData.length > 0) {
         noProjectsMessage.style.display = 'none';
     } else {
         noProjectsMessage.style.display = 'block';
