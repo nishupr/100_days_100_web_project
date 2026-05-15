@@ -188,7 +188,7 @@ function fillTable(searchTerm = "") {
     
     if (!tableBody) return;
 
-    const data = [
+    projectData = [
         ["Day 1", "To-Do List", "./public/TO_DO_LIST/todolist.html"],
         ["Day 2", "Digital Clock", "./public/digital_clock/digitalclock.html"],
         ["Day 3", "Indian Flag", "./public/indianflag/flag.html"],
@@ -307,16 +307,14 @@ function fillTable(searchTerm = "") {
         ["Day 116", "AI Image Classifier", "./public/AI Image CLassifier/index.html"],
         ["Day 117", "ZEN TIMER", "./public/ZEN_TIMER/index.html"],
     ];
-    const tbody = document.getElementById('tableBody');
 
     filteredProjectData = [...projectData];
     currentPage = 1;
 
-
     renderTable();
-
     createPagination();
 }
+
 function renderTable() {
     const tbody = document.getElementById('tableBody');
 
@@ -413,19 +411,8 @@ function filterProjects() {
     if (filteredProjectData.length > 0) {
         noProjectsMessage.style.display = 'none';
     } else {
-        if (noProjectsMessage) noProjectsMessage.style.display = "none";
+        noProjectsMessage.style.display = 'block';
     }
-
-    // Build and append table rows
-    filteredData.forEach(project => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${project[0]}</td>
-            <td>${project[1]}</td>
-            <td><a class="button" href="${project[2]}" target="_blank">Live Demo</a></td>
-        `;
-        tableBody.appendChild(row);
-    });
 }
 
 // Global initialization sequence
