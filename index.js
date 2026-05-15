@@ -82,7 +82,79 @@ function initCanvas() {
         requestAnimationFrame(animate);
     }
     animate();
+
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
 }
+
+// Theme Toggle Functionality Initialize theme from storage or default to dark
+const savedTheme = localStorage.getItem('theme') || window.theme || 'dark';
+window.theme = savedTheme;
+
+if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+} else {
+    document.body.classList.remove('light-mode');
+}
+
+// Update Navbar for Login Status
+const buttons = document.getElementsByClassName('buttons')[0];
+
+function updateNavbar() {
+    if (!buttons) return;
+    const username = window.username || null;
+    const isRoot = !window.location.pathname.includes('/contributors/');
+    const basePath = isRoot ? '' : '../';
+    const isLight = document.body.classList.contains('light-mode');
+    
+    const themeButton = `
+        <button id="themeToggle" class="button" title="Toggle Theme">
+            <i class="fas ${isLight ? 'fa-sun' : 'fa-moon'}"></i>
+        </button>
+    `;
+
+    if (username) {
+        buttons.innerHTML = `
+        <span class="welcome-text">Welcome, ${username}</span>
+        <button class="button logout-btn" id='logout'>Logout</button>
+        <a class="button" href="https://github.com/dhairyagothi" target="_blank">GitHub</a>
+        <a class="button" href="${basePath}contributors/contributor.html">Contributors</a>
+        ${themeButton}`;
+
+        document.getElementById('logout').addEventListener('click', () => {
+            window.username = null;
+            updateNavbar();
+        });
+    } else {
+        buttons.innerHTML = `
+        <a class="button" href="${basePath}contributors/contributor.html">Contributors</a>
+        <a class="button" href="https://github.com/dhairyagothi" target="_blank">GitHub</a>
+        <a class="button login-btn" href="${basePath}public/Login.html">Log in</a>
+        ${themeButton}`;
+    }
+    
+    // Single, clean click controller execution
+    const toggleBtn = document.getElementById('themeToggle');
+    const toggleIcon = toggleBtn.querySelector('i');
+    
+    toggleBtn.addEventListener('click', () => {
+        const currentlyLight = document.body.classList.toggle('light-mode');
+        
+        if (currentlyLight) {
+            toggleIcon.className = 'fas fa-sun';
+            window.theme = 'light';
+            localStorage.setItem('theme', 'light');
+        } else {
+            toggleIcon.className = 'fas fa-moon';
+            window.theme = 'dark';
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+}
+
 
 // ============================================
 // 4. PROJECT DATA (5 ELEMENTS FORMAT)
@@ -205,11 +277,6 @@ function fillTable() {
         ["Day 114", "EchoNotes", "./public/EchoNotes/index.html", "todo javascript", "intermediate"],
         ["Day 115", "Registration System", "https://render.com/...", "api javascript", "intermediate"],
         ["Day 116", "AI Image Classifier", "./public/AI Image Classifier/index.html", "api javascript", "intermediate"]
-    ];
-
-    filteredData = [...projectData];
-    applyFilters();
-}
 
 // ============================================
 // 5. CORE FILTER & RENDER LOGIC
@@ -329,3 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 });
+
+ 
+
+    
