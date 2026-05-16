@@ -352,6 +352,7 @@ function FaultyTerminal({
         label.style.fontSize = '11px';
         label.style.borderRadius = '6px';
         label.style.zIndex = '2';
+        label.style.pointerEvents = 'none';
         label.textContent = 'Terminal: fallback';
         parent.appendChild(label);
         rafId = requestAnimationFrame(draw);
@@ -425,6 +426,7 @@ function FaultyTerminal({
     gl.canvas.style.width = '100%';
     gl.canvas.style.height = '100%';
     gl.canvas.style.display = 'block';
+    gl.canvas.style.pointerEvents = 'none';
 
     const resize = () => {
       if (renderer && renderer.setSize) {
