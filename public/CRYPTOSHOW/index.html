@@ -1,17 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/src/assets/favicon-32x32.png" />
-    <link rel="icon" href="../favv.png" type="image/x-icon" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoShow</title>
 
-    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CryptoShow</title>
-    
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">Crypto<span>Show</span></div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#market">Market</a>
+      <a href="#prices">Prices</a>
+      <a href="#stats">Stats</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Trade & Track <span>Crypto</span> Like a Pro</h1>
+
+      <p>
+        CryptoShow is a modern cryptocurrency dashboard with live-style UI,
+        trending coins, portfolio overview, market statistics, and beautiful
+        animations using only HTML, CSS, and JavaScript.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn primary-btn" onclick="scrollToSection('contact')">Get Started</button>
+        <button class="btn secondary-btn" onclick="scrollToSection('market')">Explore Market</button>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="portfolio-header">
+        <div class="portfolio-balance">
+          <h2>Total Portfolio</h2>
+          <h1>$124,532</h1>
+          <div class="growth">+12.4% This Month</div>
+        </div>
+      </div>
+
+      <div class="coin-list">
+        <div class="coin">
+          <div class="coin-left">
+            <div class="coin-icon btc">₿</div>
+            <div>
+              <h4>Bitcoin</h4>
+              <p>BTC</p>
+            </div>
+          </div>
+          <div>
+            <h4>$64,200</h4>
+            <p class="positive">+5.3%</p>
+          </div>
+        </div>
+
+        <div class="coin">
+          <div class="coin-left">
+            <div class="coin-icon eth">Ξ</div>
+            <div>
+              <h4>Ethereum</h4>
+              <p>ETH</p>
+            </div>
+          </div>
+          <div>
+            <h4>$3,450</h4>
+            <p class="positive">+2.1%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="market" id="market">
+    <div class="section-title">
+      <h2>Why Choose CryptoShow?</h2>
+      <p>Powerful crypto dashboard experience with stunning UI.</p>
+    </div>
+  </section>
+
+  <section class="stats" id="stats">
+    <div class="stats-container">
+      <div class="stat-box">
+        <h1 id="users">0</h1>
+        <p>Active Users</p>
+      </div>
+
+      <div class="stat-box">
+        <h1 id="volume">0</h1>
+        <p>Trading Volume</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="price-section" id="prices">
+    <div class="section-title">
+      <h2>Top Crypto Prices</h2>
+      <p>Dummy data for showcase purposes.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Coin</th>
+          <th>Price</th>
+          <th>24h Change</th>
+          <th>Market Cap</th>
+        </tr>
+      </thead>
+
+      <tbody id="cryptoTable"></tbody>
+    </table>
+  </section>
+
+  <section class="newsletter" id="contact">
+    <div class="newsletter-box">
+      <h2>Join Our Crypto Newsletter</h2>
+
+      <div class="newsletter-form">
+        <input type="email" id="email" placeholder="Enter your email address">
+        <button class="btn primary-btn" onclick="subscribeUser()">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast">
+    Subscription Successful 🚀
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
