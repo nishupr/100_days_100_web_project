@@ -1,6 +1,6 @@
 MERN Login Form 🔐
 
-A full-stack authentication system built with MongoDB, Express, React, and Node.js. Because apparently every developer must build a login form before society grants them access to adulthood.
+A full-stack authentication system built with MongoDB, Express, React, and Node.js. 
 
 This project is a complete MERN stack authentication application featuring user registration, login, secure password hashing, JWT authentication, protected routes, and modern frontend integration using React.
 
