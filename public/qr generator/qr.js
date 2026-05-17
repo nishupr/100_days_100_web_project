@@ -27,6 +27,30 @@ qrType.addEventListener('change', updateInputFields);
 
 function generateQRCode() {
     qrcodeDiv.innerHTML = '';
+    // 🛑 INPUT VALIDATION 
+if (
+    (qrType.value === 'text' || qrType.value === 'url') &&
+    inputText.value.trim() === ''
+) {
+    alert("Please enter some text or URL");
+    return;
+}
+
+if (qrType.value === 'wifi') {
+    const ssid = document.getElementById('wifi-ssid').value;
+    if (ssid.trim() === '') {
+        alert("Please enter WiFi SSID");
+        return;
+    }
+}
+
+if (qrType.value === 'vcard') {
+    const name = document.getElementById('vcard-name').value;
+    if (name.trim() === '') {
+        alert("Please enter name for vCard");
+        return;
+    }
+}
     const selectedType = qrType.value;
     let data = '';
 
