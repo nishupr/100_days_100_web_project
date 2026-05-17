@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jay Hind</title>
+
     <link href="../indianflag/flag.css" rel="stylesheet" />
     <link rel="icon" href="../favv.png" type="image/x-icon" />
   </head>
 
   <body>
+    <!-- Background Video -->
     <div class="background-video">
       <video autoplay muted loop id="bg-video">
         <source
@@ -21,23 +23,39 @@
     </div>
 
     <div class="wrapper">
+
+      <!-- Flag Pole -->
       <div class="bar">
         <div class="bar-1"></div>
         <div class="bar-2"></div>
         <div class="bar-3"></div>
       </div>
+
+      <!-- Indian Flag -->
       <div class="flag">
         <div class="top"></div>
+
         <div class="middle">
-          <img src="../indianflag/img/ashokchakr.gif" alt="" width="80px" />
+          <img
+            src="../indianflag/img/ashokchakr.gif"
+            alt="Ashoka Chakra"
+            width="80px"
+          />
         </div>
+
         <div class="bottom"></div>
       </div>
 
+      <!-- Quote Section -->
       <div class="quote-container">
         <img id="patriot-image" src="" alt="Patriot Image" width="150px" />
-        <div class="quote">"Give me blood and I will give you freedom."</div>
+
+        <div class="quote">
+          "Give me blood and I will give you freedom."
+        </div>
+
         <div class="author">- Subhas Chandra Bose</div>
+
         <div class="quote-nav">
           <button id="prev-quote">&#8592;</button>
           <button id="next-quote">&#8594;</button>
@@ -45,8 +63,20 @@
       </div>
     </div>
 
+    <!-- Background Music Controls -->
+<div class="music-controls">
+  <audio id="bgMusic" controls autoplay loop>
+    <source src="vande_mataram.mp3" type="audio/mpeg">
+  </audio>
+
+
+</div>
+    
+
+    
+
     <script>
-      // JavaScript for quote navigation
+      // Quotes data
       const quotes = [
         {
           text: '"Give me blood and I will give you freedom."',
@@ -79,7 +109,8 @@
           image: "./img/ram_prasad.png",
         },
         {
-          text: '"Dushman ki goliyon ka hum samna karenge, Azad hee rahein hain, azad hee rahenge."',
+          text:
+            '"Dushman ki goliyon ka hum samna karenge, Azad hee rahein hain, azad hee rahenge."',
           author: "- Chandrashekhar Azad",
           image: "./img/azad.png",
         },
@@ -99,12 +130,14 @@
           image: "./img/gandhi.png",
         },
       ];
+
       let currentQuoteIndex = 0;
 
       const quoteText = document.querySelector(".quote");
       const quoteAuthor = document.querySelector(".author");
       const patriotImage = document.getElementById("patriot-image");
 
+      // Display current quote
       function displayQuote() {
         quoteText.textContent = quotes[currentQuoteIndex].text;
         quoteAuthor.textContent = quotes[currentQuoteIndex].author;
@@ -114,16 +147,38 @@
 
       displayQuote();
 
+      // Auto-change quotes every 5 seconds
+      setInterval(() => {
+        currentQuoteIndex =
+          (currentQuoteIndex + 1) % quotes.length;
+        displayQuote();
+      }, 5000);
+
+      // Previous button
       document.getElementById("prev-quote").addEventListener("click", () => {
         currentQuoteIndex =
           (currentQuoteIndex - 1 + quotes.length) % quotes.length;
         displayQuote();
       });
 
+      // Next button
       document.getElementById("next-quote").addEventListener("click", () => {
-        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        currentQuoteIndex =
+          (currentQuoteIndex + 1) % quotes.length;
         displayQuote();
       });
+
+      // Get background music element
+      const music = document.getElementById("bgMusic");
+
+      // Try autoplay when page loads
+      window.addEventListener("load", () => {
+      music.play().catch(() => {
+    console.log("Autoplay blocked by browser");
+  });
+});
+      
+        
     </script>
   </body>
 </html>
