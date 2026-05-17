@@ -228,7 +228,16 @@ body {
   background-color: #046A38;
 }
 
+@media (max-width: 768px) {
+  .flag {
+    width: 90%;
+    height: auto;
+  }
 
+  h1 {
+    font-size: 20px;
+  }
+}
 
 
 .music-controls {
