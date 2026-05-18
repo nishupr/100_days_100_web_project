@@ -311,10 +311,16 @@ function updateNavbar() {
     const username = window.username || null;
     const isRoot   = !window.location.pathname.includes('/contributors/');
     const base     = isRoot ? '' : '../';
-    const isDark   = !document.body.classList.contains('light-mode');
+    const isLight  = document.body.classList.contains('light-mode');
+    const themeButton = `
+            <button class="btn btn-ghost btn-sm" id="themeToggleNav" aria-label="Toggle theme">
+                <i class="fas ${isLight ? 'fa-sun' : 'fa-moon'}"></i>
+            </button>
+        `;
 
     if (username) {
         container.innerHTML = `
+            ${themeButton}
             <span class="welcome-text">Hi, ${username}</span>
             <button class="btn btn-ghost btn-sm" id="logoutBtn">Log out</button>
             <button class="btn btn-ghost btn-sm" id="generateReadmeBtn">Generate README</button>
@@ -331,6 +337,7 @@ function updateNavbar() {
         if (gen) gen.addEventListener('click', generateReadme);
     } else {
         container.innerHTML = `
+            ${themeButton}
             <a class="btn btn-ghost btn-sm" href="${base}contributors/contributor.html">Contributors</a>
             <a class="btn btn-ghost btn-sm" href="https://github.com/dhairyagothi" target="_blank">
                 <i class="fab fa-github"></i> GitHub
@@ -347,22 +354,36 @@ function updateNavbar() {
    THEME TOGGLE
    ============================================================ */
 function initTheme() {
-    const btn = document.getElementById('themeToggle');
-    if (!btn) return;
-
-    const icon = btn.querySelector('i');
     const saved = localStorage.getItem('theme') || 'dark';
+    let transitionTimer = null;
+
+    const syncThemeIcons = () => {
+        const isLight = document.body.classList.contains('light-mode');
+        const iconClass = isLight ? 'fas fa-sun' : 'fas fa-moon';
+        document.querySelectorAll('#themeToggle i, #themeToggleNav i').forEach(icon => {
+            icon.className = iconClass;
+        });
+    };
 
     if (saved === 'light') {
         document.body.classList.add('light-mode');
-        icon.className = 'fas fa-sun';
     }
+    syncThemeIcons();
 
-    btn.addEventListener('click', () => {
+    document.body.addEventListener('click', (e) => {
+        const target = e.target.closest('#themeToggle') || e.target.closest('#themeToggleNav');
+        if (!target) return;
+
         document.body.classList.toggle('light-mode');
         const isLight = document.body.classList.contains('light-mode');
-        icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        syncThemeIcons();
+
+        document.body.classList.add('theme-transitioning');
+        if (transitionTimer) clearTimeout(transitionTimer);
+        transitionTimer = setTimeout(() => {
+            document.body.classList.remove('theme-transitioning');
+        }, 400);
     });
 }
 
