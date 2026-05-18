@@ -38,7 +38,23 @@ const getWeather = (city) => {
 }
 
 submit.addEventListener("click", (e) => {
-    e.preventDefault()
-    getWeather(city.value)
-})
+    e.preventDefault();
+    getWeather(city.value);
+});
 
+window.onscroll = function () {
+    if (document.documentElement.scrollTop > 200) {
+        topBtn.style.display = "block";
+    } else {
+        topBtn.style.display = "none";
+    }
+};
+
+topBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
+getWeather("Mumbai");
