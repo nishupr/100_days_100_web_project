@@ -133,7 +133,7 @@ const PROJECTS = [
     ["Day 117", "Habit Tracker Web App",               "./public/Habit-Tracker-Web-App/index.html",                                                                      ["HTML","CSS","JS"],       "tool"],
     ["Day 119", "Virtual Playground",                  "./playground.html",                                                                                              ["HTML","CSS","JS"],       "tool"],
 
-
+];
 let currentPage = 1;
 const itemsPerPage = 10;
 let projectData = [];
