@@ -806,6 +806,15 @@ const PROJECT_DATA = [
     'api javascript',
     'intermediate',
   ],
+  [
+    
+    'Day 117',
+    'Snake and Ladder',
+    './public/snakeladder/index.html',
+    'game javascript',
+    'intermediate',
+  ],
+  
 ];
 
 // Alias for consistency
