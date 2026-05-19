@@ -153,6 +153,7 @@ function Add() {
 
     taskText.setAttribute('contenteditable', 'false');
     note.classList.remove('editing');
+    showToast('Task Updated');
   }
 
   taskText.addEventListener('keydown', (e) => {
@@ -206,7 +207,7 @@ function Add() {
     tickBtn.style.borderColor = taskText.classList.contains('completed')
       ? '#4caf50'
       : '#555';
-      updateStats();
+    updateStats();
   });
 
   // Delete button
@@ -235,14 +236,12 @@ function Add() {
     note.style.opacity = '0';
     note.style.transform = 'scale(0.92)';
     setTimeout(() => {
+      note.remove();
 
-  note.remove();
+      updateStats();
 
-  updateStats();
-
-  showToast('Task Deleted');
-
-}, 250);
+      showToast('Task Deleted');
+    }, 250);
   });
 
   // Type badge (only if type was selected)
@@ -271,7 +270,9 @@ function Add() {
   notesContainer.appendChild(note);
 
   updateStats();
+
   showToast('Task Added Successfully');
+
   // Reset inputs
   taskInput.value = '';
   taskTypeSelect.value = '';
@@ -346,6 +347,11 @@ function saveAsPDF() {
 }
 
 function saveDocument(fileName, fileURL) {
+  const emptyDocs = document.querySelector('.empty-docs');
+
+  if (emptyDocs) {
+    emptyDocs.remove();
+  }
   const docItem = document.createElement('div');
   docItem.className = 'document-item';
   docItem.innerHTML = `
