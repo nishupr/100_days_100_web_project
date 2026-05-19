@@ -211,7 +211,9 @@ jobs:
               echo "Push attempt ${attempt} failed; rebasing on origin/${target_branch} and retrying..."
               if ! git pull --rebase origin "${target_branch}"; then
                 echo "Rebase failed while preparing retry; aborting."
-                git rebase --abort || true
+                if ! git rebase --abort; then
+                  echo "No active rebase to abort."
+                fi
                 exit 1
               fi
             fi
