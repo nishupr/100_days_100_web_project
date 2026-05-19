@@ -9,7 +9,26 @@
 
  <body>
 
-<button id="theme-toggle">🌙 Dark Mode</button>
+<div class="controls-panel">
+    <button id="theme-toggle">🌙 Dark Mode</button>
+    <div class="control-group">
+        <label for="category-select">Category:</label>
+        <select id="category-select">
+            <option value="all">All Elements</option>
+        </select>
+    </div>
+    <div class="control-group">
+        <label for="heatmap-select">Heatmap:</label>
+        <select id="heatmap-select">
+            <option value="none">None</option>
+            <option value="electronegativity">Electronegativity</option>
+        </select>
+    </div>
+    <div class="control-group slider-group">
+        <label for="temp-slider">Temperature: <span id="temp-display">298 K</span></label>
+        <input type="range" id="temp-slider" min="0" max="6000" value="298">
+    </div>
+</div>
 
 <div class="table-container">
 
@@ -31,6 +50,9 @@
             <p><strong>Atomic Mass:</strong> <span id="modal-mass"></span></p>
             <p><strong>Group:</strong> <span id="modal-group"></span></p>
             <p><strong>Period:</strong> <span id="modal-period"></span></p>
+            <p><strong>Electronegativity:</strong> <span id="modal-electronegativity"></span></p>
+            <p><strong>Melting Point:</strong> <span id="modal-melting"></span></p>
+            <p><strong>Boiling Point:</strong> <span id="modal-boiling"></span></p>
             <p><strong>Category:</strong><span id="modal-category" class="category-badge"></span></p>
             <p><strong>Interesting Fact:</strong></p><p id="modal-fact" class="fact-text"></p>
 
