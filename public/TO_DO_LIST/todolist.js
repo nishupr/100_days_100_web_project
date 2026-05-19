@@ -212,23 +212,40 @@ function Add() {
 
   // Delete button
   const delBtn = document.createElement('button');
+
   delBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+
   delBtn.title = 'Delete task';
+
+  delBtn.classList.add('delete-btn');
+
   delBtn.style.cssText = [
-    'background:none',
-    'border:none',
+    'background:rgba(255,255,255,0.08)',
+    'border:1px solid rgba(255,255,255,0.1)',
+    'width:34px',
+    'height:34px',
+    'border-radius:10px',
     'cursor:pointer',
-    'font-size:13px',
-    'color:#c0392b',
-    'padding:2px',
-    'transition:transform 0.2s',
+    'display:flex',
+    'align-items:center',
+    'justify-content:center',
+    'color:#ff6b6b',
+    'font-size:15px',
+    'transition:all 0.25s ease',
   ].join(';');
+
   delBtn.addEventListener('mouseenter', () => {
-    delBtn.style.transform = 'scale(1.25)';
+    delBtn.style.transform = 'scale(1.12) rotate(6deg)';
+
+    delBtn.style.background = 'rgba(255,107,107,0.18)';
   });
+
   delBtn.addEventListener('mouseleave', () => {
-    delBtn.style.transform = 'scale(1)';
+    delBtn.style.transform = 'scale(1) rotate(0deg)';
+
+    delBtn.style.background = 'rgba(255,255,255,0.08)';
   });
+
   delBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     note.style.animation = 'none';
@@ -374,6 +391,22 @@ function downloadPDF(fileURL, fileName) {
 }
 function deletePDF(button) {
   button.parentElement.remove();
+
+  const remainingDocs = document.querySelectorAll('.document-item');
+
+  if (remainingDocs.length === 0) {
+    documentsList.innerHTML = `
+      <div class="empty-docs">
+
+        <div class="empty-icon">📂</div>
+
+        <p>No documents exported yet.</p>
+
+      </div>
+    `;
+  }
+
+  showToast('Document Deleted');
 }
 
 function showPDFMessage() {
