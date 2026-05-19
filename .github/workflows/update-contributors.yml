@@ -191,6 +191,8 @@ jobs:
 
       - name: Commit reordered contributors
         run: |
+          target_branch="${GITHUB_BASE_REF:-$GITHUB_REF_NAME}"
+
           if git diff --quiet README.md; then
             echo "No contributor reorder changes to commit."
             exit 0
@@ -199,4 +201,15 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
           git commit -m "docs(readme): reorder contributors by latest commit [skip ci]"
-          git push
+
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:${target_branch}"; then
+              exit 0
+            fi
+
+            echo "Push attempt ${attempt} failed; rebasing on origin/${target_branch} and retrying..."
+            git pull --rebase origin "${target_branch}"
+          done
+
+          echo "Failed to push README contributor reorder changes after 3 attempts."
+          exit 1
