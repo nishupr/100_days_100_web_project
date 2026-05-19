@@ -9,6 +9,7 @@ const lowercaseCheck = document.querySelector("#lowercase");
 const numbersCheck = document.querySelector("#numbers");
 const symbolsCheck = document.querySelector("#symbols");
 const indicator = document.querySelector("[data-indicator]");
+const strengthText = document.querySelector("[data-strengthText]");
 const generateBtn = document.querySelector(".generateButton");
 const allCheckBox = document.querySelectorAll("input[type=checkbox]");
 const symbols = '~`!@#$%^&*()_-+={[}]|:;"<,>.?/';
@@ -71,14 +72,17 @@ function calcStrength() {
   
     if (hasUpper && hasLower && (hasNum || hasSym) && passwordLength >= 8) {
       setIndicator("#0f0");
+      strengthText.innerText = "Strong";
     } else if (
       (hasLower || hasUpper) &&
       (hasNum || hasSym) &&
       passwordLength >= 6
     ) {
       setIndicator("#ff0");
+      strengthText.innerText = "Medium";
     } else {
       setIndicator("#f00");
+      strengthText.innerText = "Weak";
     }
 }
 
