@@ -85,22 +85,28 @@ jobs:
               contributors.append((index, username, cell))
 
           latest_by_username = {}
-          page = 1
+          current_page = 1
           remaining_usernames = set(usernames)
-          while remaining_usernames and page <= max_commit_pages:
+          while remaining_usernames and current_page <= max_commit_pages:
               url = (
                   f"https://api.github.com/repos/{repository}/commits"
-                  f"?per_page={commits_per_page}&page={page}"
+                  f"?per_page={commits_per_page}&page={current_page}"
               )
               request = urllib.request.Request(url, headers=headers)
               try:
                   with urllib.request.urlopen(request) as response:
                       payload = json.loads(response.read().decode("utf-8"))
               except urllib.error.HTTPError as exc:
-                  print(f"Warning: unable to fetch commits page {page}: HTTP {exc.code}")
+                  print(
+                      f"Warning: unable to fetch commits page {current_page}: HTTP {exc.code}. "
+                      "Contributor order may be partially updated; rerun workflow if needed."
+                  )
                   break
               except urllib.error.URLError as exc:
-                  print(f"Warning: unable to fetch commits page {page}: {exc.reason}")
+                  print(
+                      f"Warning: unable to fetch commits page {current_page}: {exc.reason}. "
+                      "Contributor order may be partially updated; rerun workflow if needed."
+                  )
                   break
 
               if not isinstance(payload, list) or not payload:
@@ -133,7 +139,7 @@ jobs:
 
               if len(payload) < commits_per_page:
                   break
-              page += 1
+              current_page += 1
 
           contributors = [
               (
