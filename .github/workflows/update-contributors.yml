@@ -44,6 +44,7 @@ jobs:
           start_marker = "<!-- readme: contributors -start -->"
           end_marker = "<!-- readme: contributors -end -->"
           columns_per_row = 6
+          max_commit_pages = 20
 
           content = readme_path.read_text(encoding="utf-8")
           section_match = re.search(
@@ -85,7 +86,7 @@ jobs:
           latest_by_username = {}
           page = 1
           remaining_usernames = set(usernames)
-          while remaining_usernames:
+          while remaining_usernames and page <= max_commit_pages:
               url = (
                   f"https://api.github.com/repos/{repository}/commits"
                   f"?per_page=100&page={page}"
@@ -115,9 +116,14 @@ jobs:
                   date_str = author_info.get("date")
                   if not date_str:
                       continue
-                  latest_by_username[username] = datetime.fromisoformat(
-                      date_str.replace("Z", "+00:00")
-                  ).timestamp()
+                  try:
+                      parsed_date = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%SZ")
+                  except ValueError:
+                      try:
+                          parsed_date = datetime.fromisoformat(date_str)
+                      except ValueError:
+                          continue
+                  latest_by_username[username] = parsed_date.timestamp()
                   remaining_usernames.discard(username)
 
               if len(payload) < 100:
