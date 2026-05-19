@@ -10,8 +10,8 @@ const questions = [
 
 let currentQuestion = 0;
 let stress = 0;
-let timeLeft = 30;
-const totalTime = 30;
+let timeLeft = 60;
+const totalTime = 60;
 let timer;
 
 // DOM Elements
