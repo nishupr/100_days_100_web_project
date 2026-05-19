@@ -234,32 +234,31 @@ function Add() {
   delBtn.classList.add('delete-btn');
 
   delBtn.style.cssText = [
-    isLightTheme
-      ? 'background:rgba(0,0,0,0.06)'
-      : 'background:rgba(255,255,255,0.08)',
-    'border:1px solid rgba(255,255,255,0.1)',
-    'width:34px',
-    'height:34px',
-    'border-radius:10px',
+    'background:linear-gradient(135deg,#ff4d4d,#d90429)',
+    'border:none',
+    'width:38px',
+    'height:38px',
+    'border-radius:12px',
     'cursor:pointer',
     'display:flex',
     'align-items:center',
     'justify-content:center',
-    'color:#ff6b6b',
+    'color:white',
     'font-size:15px',
+    'box-shadow:0 6px 16px rgba(255,77,77,0.35)',
     'transition:all 0.25s ease',
   ].join(';');
 
   delBtn.addEventListener('mouseenter', () => {
-    delBtn.style.transform = 'scale(1.12) rotate(6deg)';
+    delBtn.style.transform = 'translateY(-2px) scale(1.08)';
 
-    delBtn.style.background = 'rgba(255,107,107,0.18)';
+    delBtn.style.boxShadow = '0 10px 24px rgba(255,77,77,0.5)';
   });
 
   delBtn.addEventListener('mouseleave', () => {
-    delBtn.style.transform = 'scale(1) rotate(0deg)';
+    delBtn.style.transform = 'translateY(0) scale(1)';
 
-    delBtn.style.background = 'rgba(255,255,255,0.08)';
+    delBtn.style.boxShadow = '0 6px 16px rgba(255,77,77,0.35)';
   });
 
   delBtn.addEventListener('click', (e) => {
