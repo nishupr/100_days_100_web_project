@@ -45,6 +45,7 @@ jobs:
           end_marker = "<!-- readme: contributors -end -->"
           columns_per_row = 6
           commits_per_page = 100
+          # Scan a bounded window of recent history; unmatched users keep original order.
           max_commit_pages = 20
 
           content = readme_path.read_text(encoding="utf-8")
@@ -117,7 +118,7 @@ jobs:
                   if not author:
                       continue
                   username = author.get("login")
-                  if username not in usernames or username in latest_by_username:
+                  if username not in remaining_usernames:
                       continue
 
                   commit_info = commit_item.get("commit") or {}
@@ -126,14 +127,9 @@ jobs:
                   if not date_str:
                       continue
                   try:
-                      parsed_date = datetime.fromisoformat(date_str)
+                      parsed_date = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
                   except ValueError:
-                      if not date_str.endswith("Z"):
-                          continue
-                      try:
-                          parsed_date = datetime.fromisoformat(date_str[:-1] + "+00:00")
-                      except ValueError:
-                          continue
+                      continue
                   latest_by_username[username] = parsed_date.timestamp()
                   remaining_usernames.discard(username)
                   if not remaining_usernames:
