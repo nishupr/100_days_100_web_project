@@ -124,6 +124,7 @@ const container = document.querySelector(".table-container");
 const totalGroups = 18; // Total groups (columns) in the periodic table
 const totalPeriods = 7; // Total periods (rows) in the periodic table
 
+
 // Create a grid structure for the periodic table
 for (let period = 1; period <= totalPeriods; period++) {
     for (let group = 1; group <= totalGroups; group++) {
@@ -156,5 +157,14 @@ themeToggle.addEventListener("click", () => {
         themeToggle.innerHTML = '<span id="theme-icon">☀️</span>';
     } else {
         themeToggle.innerHTML = '<span id="theme-icon">🌙</span>';
+    }
+});
+const nameElements = document.querySelectorAll(".element-name");
+
+nameElements.forEach((nameElement) => {
+    if (nameElement.textContent.length >=10) {
+        nameElement.style.fontSize = "9px";
+        nameElement.style.lineHeight = "1";
+        nameElement.style.letterSpacing = "0";
     }
 });
