@@ -212,7 +212,7 @@ jobs:
               if ! git pull --rebase origin "${target_branch}"; then
                 echo "Rebase failed while preparing retry; aborting."
                 if ! git rebase --abort; then
-                  echo "No active rebase to abort."
+                  echo "Failed to abort rebase or no rebase in progress."
                 fi
                 exit 1
               fi
