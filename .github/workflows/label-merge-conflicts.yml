@@ -54,12 +54,28 @@ jobs:
             for (const pr of openPulls) {
               const hasLabel = pr.labels.some((label) => label.name === labelName);
 
-              const detailedPr = await github.rest.pulls.get({
-                owner,
-                repo,
-                pull_number: pr.number,
-              });
-              const hasConflicts = detailedPr.data.mergeable_state === 'dirty';
+              let mergeableState;
+              try {
+                const detailedPr = await github.rest.pulls.get({
+                  owner,
+                  repo,
+                  pull_number: pr.number,
+                });
+                mergeableState = detailedPr.data.mergeable_state;
+              } catch (error) {
+                if (error.status === 403) {
+                  core.warning(`Skipped PR #${pr.number} due to API rate limiting.`);
+                  continue;
+                }
+                throw error;
+              }
+
+              if (!mergeableState || mergeableState === 'unknown') {
+                core.info(`Skipped PR #${pr.number} because mergeability is still being calculated.`);
+                continue;
+              }
+
+              const hasConflicts = mergeableState === 'dirty';
 
               if (hasConflicts && !hasLabel) {
                 await github.rest.issues.addLabels({
