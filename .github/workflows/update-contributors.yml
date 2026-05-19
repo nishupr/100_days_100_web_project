@@ -190,9 +190,9 @@ jobs:
           PY
 
       - name: Commit reordered contributors
+        env:
+          TARGET_BRANCH: ${{ github.event.pull_request.base.ref || github.ref_name }}
         run: |
-          target_branch="${GITHUB_BASE_REF:-$GITHUB_REF_NAME}"
-
           if git diff --quiet README.md; then
             echo "No contributor reorder changes to commit."
             exit 0
@@ -203,16 +203,20 @@ jobs:
           git commit -m "docs(readme): reorder contributors by latest commit [skip ci]"
 
           for attempt in 1 2 3; do
-            if git push origin "HEAD:${target_branch}"; then
+            if git push origin "HEAD:${TARGET_BRANCH}"; then
               exit 0
             fi
 
             if [ "${attempt}" -lt 3 ]; then
-              echo "Push attempt ${attempt} failed; rebasing on origin/${target_branch} and retrying..."
-              if ! git pull --rebase origin "${target_branch}"; then
+              echo "Push attempt ${attempt} failed; rebasing on origin/${TARGET_BRANCH} and retrying..."
+              if ! git pull --rebase origin "${TARGET_BRANCH}"; then
                 echo "Rebase failed while preparing retry; aborting."
-                if ! git rebase --abort; then
-                  echo "Failed to abort rebase or no rebase in progress."
+                if [ -d .git/rebase-apply ] || [ -d .git/rebase-merge ]; then
+                  if ! git rebase --abort; then
+                    echo "Failed to abort active rebase."
+                  fi
+                else
+                  echo "No rebase in progress to abort."
                 fi
                 exit 1
               fi
