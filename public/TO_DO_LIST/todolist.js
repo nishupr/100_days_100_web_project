@@ -32,6 +32,24 @@ const THEMES = {
 
 let currentTheme = 'theme1'; // default
 
+function updateStats() {
+  const total = document.querySelectorAll('.notes').length;
+
+  const completed = document.querySelectorAll('.completed').length;
+
+  const pending = total - completed;
+
+  document.getElementById('totalTasks').innerText = total;
+
+  document.getElementById('completedTasks').innerText = completed;
+
+  document.getElementById('pendingTasks').innerText = pending;
+
+  const progress = total === 0 ? 0 : (completed / total) * 100;
+
+  document.getElementById('progressFill').style.width = `${progress}%`;
+}
+
 // ─── Task Type colour map ──────────────────────────────────────────────────────
 // Keeps track of user-chosen type colours so they survive theme switches
 const TYPE_COLORS = {
