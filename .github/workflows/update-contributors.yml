@@ -190,6 +190,8 @@ jobs:
           PY
 
       - name: Commit reordered contributors
+        env:
+          TARGET_BRANCH: ${{ github.event.pull_request.base.ref || github.ref_name }}
         run: |
           if git diff --quiet README.md; then
             echo "No contributor reorder changes to commit."
@@ -199,4 +201,26 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
           git commit -m "docs(readme): reorder contributors by latest commit [skip ci]"
-          git push
+
+          push_status=1
+          for attempt in 1 2 3; do
+            if push_output="$(git push origin "HEAD:${TARGET_BRANCH}" 2>&1)"; then
+              exit 0
+            fi
+            push_status=$?
+            echo "${push_output}"
+
+            if [ "${attempt}" -lt 3 ]; then
+              echo "Push attempt ${attempt} failed; rebasing on origin/${TARGET_BRANCH} and retrying..."
+              if ! git pull --rebase origin "${TARGET_BRANCH}"; then
+                echo "Rebase failed while preparing retry; aborting."
+                if ! git rebase --abort; then
+                  echo "Rebase abort command failed."
+                fi
+                exit 1
+              fi
+            fi
+          done
+
+          echo "Failed to push README contributor reorder changes after 3 attempts."
+          exit "${push_status:-1}"
