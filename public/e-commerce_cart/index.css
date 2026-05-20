@@ -4,7 +4,10 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
 body {
     background-color: #ffffff;
 }
@@ -22,7 +25,7 @@ header {
     display: flex;
     align-items: center;
     background-color: black;
-    height: 80px;
+    height: clamp(3rem, 9vh, 6rem);
     padding: 0 10px;
 }
 
@@ -44,7 +47,7 @@ header {
     border: 0 !important;
     width: 40px;
     height: 40px;
-    margin-right: 20px;
+    margin-right: 3px;
     border-radius: 50%;
     background-color: transparent;
     display: flex;
@@ -72,7 +75,7 @@ header {
 .hero-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     width: 100%;
     max-width: 1200px;
 }
@@ -93,13 +96,18 @@ header {
     margin-bottom: 30px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-
+.hero-image{
+    display: flex;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+}
 
 .hero-image img {
     max-width: 70%;
     height: auto;
-    margin-left: 250px;
-    margin-top:100px;
+  
+    
 }
 
 .button1 img{
@@ -109,7 +117,8 @@ header {
 
 .button1 {
     height:50px;
-    width:200px;
+    width:100%;
+    max-width:200px;
     background-image: linear-gradient(#000000, rgb(0, 0, 0));
     border: none;
     border-radius: 50px;
@@ -134,7 +143,8 @@ header {
     /* nav bar cart icon- the display part before click on cart button */
 .box {
     color: white;
-    width: 30px;
+    max-width: 30px;
+    width:100%;
     height: 30px;
     text-align: center;
     position: relative;
@@ -148,7 +158,8 @@ header {
     right: 0;
     padding: 3px;
     height: 20px;
-    width: 20px;
+    max-width: 20px;
+    width:100%;
     line-height: 20px;
     border-radius: 50%;
     z-index: 99;
@@ -436,23 +447,111 @@ h2.title {
 h3 {
     margin-top: 0;
 }
-
-@media (max-width: 600px) {
-    .container {
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 840px) {
+    .hero-content {
+        flex-wrap: wrap;
+        gap: 20px;
     }
 
-    .footer-about,
-    .footer-links,
-    .footer-contact {
-    min-width: 100%;
-    text-align: center;
+    .hero-text {
+        max-width: 100%;
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 2em;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+
+    .hero-text p {
+        font-size: 1em;
+    }
+
+    .hero-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .hero-image img {
+        max-height: 215px;
+        width: auto;
+    }
+
+    .container {
+        padding: 2rem 1rem;
     }
 }
 
-.copyright_part{
-    margin-top:20px;
-    display:flex;
-    justify-content: center;
+
+@media (max-width: 450px) {
+    .hero {
+        padding: 80px 10px 30px;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-text {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .hero-text h1 {
+        font-size: 1.6em;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .hero-text p {
+        font-size: 0.95em;
+    }
+
+    .button1 {
+        margin: 0 auto;
+    }
+
+    .hero-image {
+        width: 100%;
+    }
+
+    .hero-image img {
+        width: 55%;
+        height: auto;
+    }
+
+    .shop-content {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .shoe-box {
+        width: 100%;
+    }
+
+    .cart {
+        width: 100vw;
+    }
+
+    .site-footer .container1 {
+        flex-direction: column;
+        margin-left: 10px;
+        padding: 0 15px;
+    }
+
+    .footer-links {
+        margin-left: 0;
+    }
+
+    .trending-text {
+        font-size: 1.3em;
+    }
 }
