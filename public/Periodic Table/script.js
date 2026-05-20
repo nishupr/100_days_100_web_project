@@ -190,17 +190,9 @@ const container = document.querySelector(".table-container");
 const totalGroups = 18; 
 const totalPeriods = 7; 
 
-<<<<<<< HEAD
-const totalGroups = 18; // Total groups (columns) in the periodic table
-const totalPeriods = 7; // Total periods (rows) in the periodic table
-
-
-// Create a grid structure for the periodic table
-=======
 // ==========================================
 // INITIALIZE PERIODIC TABLE GRID
 // ==========================================
->>>>>>> upstream/Main
 for (let period = 1; period <= totalPeriods; period++) {
     for (let group = 1; group <= totalGroups; group++) {
         const cell = document.createElement("div");
@@ -229,28 +221,6 @@ for (let period = 1; period <= totalPeriods; period++) {
     }
 }
 
-<<<<<<< HEAD
-const themeToggle = document.getElementById("theme-toggle");
-
-themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-theme");
-
-    if (document.body.classList.contains("dark-theme")) {
-        themeToggle.innerHTML = '<span id="theme-icon">☀️</span>';
-    } else {
-        themeToggle.innerHTML = '<span id="theme-icon">🌙</span>';
-    }
-});
-const nameElements = document.querySelectorAll(".element-name");
-
-nameElements.forEach((nameElement) => {
-    if (nameElement.textContent.length >=10) {
-        nameElement.style.fontSize = "9px";
-        nameElement.style.lineHeight = "1";
-        nameElement.style.letterSpacing = "0";
-    }
-});
-=======
 // ==========================================
 // MODAL CONTROLS & DYNAMIC CANVAS ENGINE
 // ==========================================
@@ -706,4 +676,3 @@ Object.keys(categories).forEach(cat => {
     item.appendChild(label);
     legendContainer.appendChild(item);
 });
->>>>>>> upstream/Main
