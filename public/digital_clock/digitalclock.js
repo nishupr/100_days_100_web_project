@@ -17,14 +17,33 @@ const alarmSound = document.getElementById("alarm-sound");
 
 const alarmPopup = document.getElementById("alarm-popup");
 
-let alarmTime = localStorage.getItem("alarmTime") || null;
+let alarms =
+  JSON.parse(localStorage.getItem("alarms")) || [];
+
+let activeAlarm = null;
+
+let alarmTriggered = false;
+
+let alarmHistory =
+  JSON.parse(localStorage.getItem("alarmHistory")) || [];
 
 let alarmTriggered = false;
 
 function updateClock() {
 
-  const timezone =
-    document.getElementById("timezone").value;
+const timezoneSelect =
+  document.getElementById("timezone");
+
+if (!timezoneSelect.value) {
+
+  timezoneSelect.value =
+    Intl.DateTimeFormat()
+      .resolvedOptions()
+      .timeZone;
+}
+
+const timezone =
+  timezoneSelect.value;
 
   let now = new Date();
 
@@ -44,8 +63,11 @@ function updateClock() {
 
   const ampm = hours >= 12 ? "PM" : "AM";
 
-  const rawHours =
-    String(hours).padStart(2, "0");
+const currentHours = now.getHours();
+
+const rawHours =
+  String(currentHours).padStart(2, "0");
+  
 
   const rawMinutes =
     String(minutes).padStart(2, "0");
@@ -101,10 +123,21 @@ function updateClock() {
   fullDateEl.textContent =
     `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
 
-  timezoneLabel.textContent =
-    document.getElementById("timezone")
-    .selectedOptions[0].text;
+const selectedZone =
+  document.getElementById("timezone")
+  .selectedOptions[0].text;
 
+const offset =
+  new Intl.DateTimeFormat("en-US", {
+    timeZone: timezone,
+    timeZoneName: "short"
+  })
+  .format(now)
+  .split(" ")
+  .pop();
+
+timezoneLabel.textContent =
+  `${selectedZone} (${offset})`;
   checkAlarm(currentTime);
 }
 
@@ -180,7 +213,6 @@ function toggleAlarmSection() {
     .getElementById("alarm-controls")
     .classList.toggle("hidden");
 }
-
 function setAlarm() {
 
   const input =
@@ -192,19 +224,109 @@ function setAlarm() {
     return;
   }
 
-  alarmTime = input.value;
+  const newAlarm = {
+    id: Date.now(),
+    time: input.value,
+    enabled: true
+  };
+
+  alarms.push(newAlarm);
 
   localStorage.setItem(
-    "alarmTime",
-    alarmTime
+    "alarms",
+    JSON.stringify(alarms)
   );
 
-  alarmStatus.textContent =
-    alarmTime;
+  renderAlarms();
 
   showToast(
-    `Alarm set for ${alarmTime}`
+    `Alarm added for ${input.value}`
   );
+}
+
+function renderAlarms() {
+
+  const list =
+    document.getElementById("alarm-list");
+
+  list.innerHTML = "";
+
+  if (alarms.length === 0) {
+
+    alarmStatus.textContent =
+      "No Active Alarm";
+
+    return;
+  }
+
+  alarms.forEach(alarm => {
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "alarm-item";
+
+    div.innerHTML = `
+      <span>${alarm.time}</span>
+
+      <div class="alarm-buttons">
+
+        <button onclick="toggleAlarm(${alarm.id})">
+          ${alarm.enabled ? "ON" : "OFF"}
+        </button>
+
+        <button onclick="deleteAlarm(${alarm.id})">
+          Delete
+        </button>
+
+      </div>
+    `;
+
+    list.appendChild(div);
+  });
+
+  alarmStatus.textContent =
+    `${alarms.length} Alarm(s) Active`;
+}
+
+function toggleAlarm(id) {
+
+  alarms = alarms.map(alarm => {
+
+    if (alarm.id === id) {
+
+      alarm.enabled =
+        !alarm.enabled;
+    }
+
+    return alarm;
+  });
+
+  localStorage.setItem(
+    "alarms",
+    JSON.stringify(alarms)
+  );
+
+  renderAlarms();
+}
+
+
+function deleteAlarm(id) {
+
+  alarms =
+    alarms.filter(
+      alarm => alarm.id !== id
+    );
+
+  localStorage.setItem(
+    "alarms",
+    JSON.stringify(alarms)
+  );
+
+  renderAlarms();
+
+  showToast("Alarm deleted");
 }
 
 function setTheme(theme) {
@@ -332,20 +454,88 @@ function clearAlarm() {
 
   showToast("Alarm cleared");
 }
-
 function checkAlarm(currentTime) {
 
-  if (
-    alarmTime !== null &&
-    currentTime === alarmTime &&
-    !alarmTriggered
-  ) {
+  alarms.forEach(alarm => {
 
-    alarmTriggered = true;
+    if (
+      alarm.enabled &&
+      alarm.time === currentTime &&
+      activeAlarm !== alarm.id
+    ) {
 
-    triggerAlarm();
-  }
+      activeAlarm = alarm.id;
+
+      triggerAlarm();
+
+      saveAlarmHistory(alarm.time);
+
+      if (navigator.vibrate) {
+
+        navigator.vibrate([
+          500,
+          300,
+          500
+        ]);
+      }
+    }
+  });
 }
+
+function saveAlarmHistory(time) {
+
+  alarmHistory.unshift({
+    time,
+    triggeredAt:
+      new Date().toLocaleString()
+  });
+
+  alarmHistory =
+    alarmHistory.slice(0, 10);
+
+  localStorage.setItem(
+    "alarmHistory",
+    JSON.stringify(alarmHistory)
+  );
+}
+
+function snoozeAlarm() {
+
+  alarmPopup.classList.add(
+    "hidden"
+  );
+
+  alarmSound.pause();
+
+  alarmSound.currentTime = 0;
+
+  const now = new Date();
+
+  now.setMinutes(
+    now.getMinutes() + 5
+  );
+
+  const snoozeTime =
+    `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+
+  alarms.push({
+    id: Date.now(),
+    time: snoozeTime,
+    enabled: true
+  });
+
+  localStorage.setItem(
+    "alarms",
+    JSON.stringify(alarms)
+  );
+
+  renderAlarms();
+
+  showToast(
+    `Snoozed to ${snoozeTime}`
+  );
+}
+
 
 function triggerAlarm() {
 
@@ -355,11 +545,15 @@ function triggerAlarm() {
 
   alarmSound.loop = true;
 
-  alarmSound.play().catch(() => {
-    showToast(
-      "Browser blocked audio"
-    );
+  alarmSound.volume = 1;
+
+const playPromise = alarmSound.play();
+
+if (playPromise !== undefined) {
+  playPromise.catch(() => {
+    showToast("Click anywhere to enable alarm audio");
   });
+}
 }
 
 function stopAlarm() {
