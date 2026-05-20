@@ -227,6 +227,9 @@ generateBtn.addEventListener('click', () => {
         if(timeLeft > 0) {
           hideTimerText.innerText = `Password will auto-hide in ${timeLeft}s`;
         }
+        else {
+          clearInterval(countdownInterval);
+          }
     }, 1000);
 
     hideTimeout = setTimeout(() => {
