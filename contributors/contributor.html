@@ -168,24 +168,23 @@
         </div>
       </div>
     </footer>
-<div id="profileModal" class="modal-overlay">
+    <div id="profileModal" class="modal-overlay">
+      <div class="modal-content">
+        <button id="closeModal">&times;</button>
 
-    <div class="modal-content">
-
-        <button id="closeModal">
-            &times;
-        </button>
-
-        <div id="modalBody">
-
-            Loading...
-
-        </div>
-
+        <div id="modalBody">Loading...</div>
+      </div>
     </div>
+    <div id="certificateModal" class="modal-overlay">
+      <div class="modal-content">
+        <button id="closeCertificate">&times;</button>
 
-</div>
-    <!-- Pushed JavaScript Code To Here -->
+        <div id="certificateBody">Loading Certificate...</div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="
+https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="../index.js"></script>
     <script src="contributor.js"></script>
   </body>
