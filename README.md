@@ -116,7 +116,7 @@ The website features:
 | 48 | Text to Voice Converter | HTML, CSS, JS | 🔊 Utility | [View Demo](https://100-days-100-web-project.vercel.app/public/TextToVoiceConverter/index.html) |
 | 49 | URL Shortener | Node.js, Express | 🔗 Backend | [GitHub](https://github.com/dhairyagothi/100_days_100_web_project/tree/Main/public/url_shortener) |
 | 50 | Recipe Genie | React, Node.js | 🍳 Full-Stack | [GitHub](https://github.com/dhairyagothi/100_days_100_web_project/tree/Main/public/Recipe-Genie) |
-| 51 | Netflix Clone | HTML, CSS, JS | 🎬 Clone | [View Demo](https://100-days-100-web-project.vercel.app/public/Netflix_Cloning/Index/index.html) |
+| 51 | Netflix Clone | HTML, CSS, JS | 🎬 Clone | [View Demo](https://100-days-100-web-project.vercel.app/public/Netflix_Cloning/Index.html) |
 | 52 | ClimaCode 2.0 | HTML, CSS, JS | 🌤️ App | [View Demo](https://100-days-100-web-project.vercel.app/public/ClimaCode%202.0/index.html) |
 | 53 | E-commerce Cart | HTML, CSS, JS | 🛒 E-commerce | [View Demo](https://100-days-100-web-project.vercel.app/public/e-commerce_cart/index.html) |
 | 54 | Budget Tracker | HTML, CSS, JS | 💰 Finance | [View Demo](https://100-days-100-web-project.vercel.app/public/Budget%20Tracker/index.html) |
@@ -132,7 +132,7 @@ The website features:
 | 64 | Zomato Clone | HTML, CSS, JS | 🍕 Clone | [View Demo](https://100-days-100-web-project.vercel.app/public/zomato-clone/zomato/index.html) |
 | 65 | The Cube | HTML, CSS | 🎲 3D Animation | [View Demo](https://100-days-100-web-project.vercel.app/public/The%20Cube/index.html) |
 | 66 | Flask Auth App | Python, Flask | 🔐 Backend | [GitHub](https://github.com/dhairyagothi/100_days_100_web_project/tree/Main/public/flask_auth_app) |
-| 67 | Blog Website | HTML, CSS, JS | 📝 Blog | [View Demo](https://100-days-100-web-project.vercel.app/public/blog/main/index.html) |
+| 67 | Blog Website | HTML, CSS, JS | 📝 Blog | [View Demo](https://100-days-100-web-project.vercel.app/public/blog/main.html) |
 | 68 | 3D Rotating Card | HTML, CSS | 🎲 3D Animation | [View Demo](https://100-days-100-web-project.vercel.app/public/3d%20cards/index.html) |
 | 69 | Spotify Clone | HTML, CSS, JS | 🎵 Clone | [View Demo](https://100-days-100-web-project.vercel.app/public/spotify-clone%20-project/index.html) |
 | 70 | Insect Catch Game | HTML, CSS, JS | 🐛 Game | [View Demo](https://100-days-100-web-project.vercel.app/public/Insect-Catch-Game/index.html) |
@@ -155,7 +155,7 @@ The website features:
 | 87 | Breakout Game | HTML, CSS, JS | 🎮 Game | [View Demo](https://100-days-100-web-project.vercel.app/public/Breakout%20game/index.html) |
 | 88 | Job Dashboard | HTML, CSS, JS | 💼 Dashboard | [View Demo](https://100-days-100-web-project.vercel.app/public/Job%20dashboard/jobs/index.html) |
 | 89 | N-Queen Solver | HTML, CSS, JS | 👑 Algorithm | [View Demo](https://100-days-100-web-project.vercel.app/public/N_Queen/index.html) |
-| 90 | Quiz App Timer | HTML, CSS, JS | ❓ Quiz | [View Demo](https://100-days-100-web-project.vercel.app/public/QuizeApp%20Timer/index1/index.html) |
+| 90 | Quiz App Timer | HTML, CSS, JS | ❓ Quiz | [View Demo](https://100-days-100-web-project.vercel.app/public/QuizeApp%20Timer/index1.html) |
 | 91 | Voting App Backend | Node.js, Express | 🗳️ Backend | [GitHub](https://github.com/dhairyagothi/100_days_100_web_project/tree/Main/public/Voting_Application_Backend) |
 | 92 | Slide Puzzle Game | HTML, CSS, JS | 🧩 Game | [View Demo](https://100-days-100-web-project.vercel.app/public/Slide%20puzzle%20Game/index.html) |
 | 93 | TextUtils | React | ✏️ React App | [View Demo](https://github.com/dhairyagothi/100_days_100_web_project/tree/Main/public/Textutils/index.html) |
