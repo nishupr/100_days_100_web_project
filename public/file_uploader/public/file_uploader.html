@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -296,6 +297,7 @@
     input[type="submit"]:active { transform: translateY(0); }
   </style>
 </head>
+
 <body>
 
   <div class="container">
@@ -404,4 +406,47 @@
     }
   </script>
 </body>
+<script>
+  const fileInput = document.getElementById('myFile');
+  const fileName = document.getElementById('file-name');
+  const message = document.getElementById('message');
+  const form = document.querySelector('.myform');
+
+  fileInput.addEventListener('change', () => {
+    const files = fileInput.files;
+
+    if (files.length > 0) {
+      const names = Array.from(files).map(file => file.name).join(', ');
+      fileName.textContent = `Selected: ${names}`;
+    } else {
+      fileName.textContent = '';
+    }
+  });
+
+  form.addEventListener('submit', (e) => {
+    const files = fileInput.files;
+
+    if (files.length === 0) {
+      e.preventDefault();
+      message.textContent = 'Please select at least one file.';
+      message.style.color = 'red';
+      return;
+    }
+
+    const maxSize = 5 * 1024 * 1024;
+
+    for (let file of files) {
+      if (file.size > maxSize) {
+        e.preventDefault();
+        message.textContent = 'File size must be below 5MB.';
+        message.style.color = 'red';
+        return;
+      }
+    }
+
+    message.textContent = 'Files ready for upload!';
+    message.style.color = 'green';
+  });
+</script>
+
 </html>
