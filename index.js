@@ -138,7 +138,7 @@ const PROJECT_DATA = [
   ['Day 119', 'Virtual Playground', './playground.html', 'ui game html css js', 'intermediate'],
   ['Day 120', 'Typing Speed Test', './public/typing_test/index.html', 'html css js game', 'intermediate'],
   ['Day 121', 'InterviewSimulator', './public/InterviewSimulator/index.html','tool','intermediate'],
-  ['Day 122', 'AstronomyDashboard', './public/AstronomyDashboard/astro.html','html css javascript api-javascript','Advanced'],
+    ['Day 122', 'AstronomyDashboard', './public/AstronomyDashboard/astro.html','html css javascript api-javascript','Advanced'],
   ['Day 123', 'Pomodoro Timer', './public/Pomodoro_Timer/index.html', 'productivity tool', 'intermediate'],
   ['Day 124', 'Hurdle Highway 2D',   './public/Hurdle_Highway_2D/index.html', 'game', 'intermediate'],
   ['Day 125', 'Snakeladder',   './public/Snakeladder/index.html', 'game', 'intermediate'],
@@ -155,7 +155,6 @@ const PROJECT_DATA = [
   ['Day 136', 'Maths Quiz Game', './public/maths-quiz-game/index.html', 'game javascript', 'intermediate'],
   ['Day 137', 'Age Calculator', './public/age-calculator/index.html', 'tool javascript', 'beginner']
 ];
-
 // Alias for consistency
 const PROJECTS = PROJECT_DATA;
 console.log('PROJECTS defined:', PROJECTS.length, 'items');
