@@ -597,30 +597,72 @@ alt="${contributor.login}">
   contributorsContainer.appendChild(fragment);
 }
 
+function renderStargazers(stargazers) {
+  const stargazersContainer = document.getElementById('stargazers');
+
+  stargazersContainer.innerHTML = '';
+
+  stargazers.forEach((stargazer) => {
+    const starItem = document.createElement('a');
+
+    starItem.href = stargazer.html_url;
+
+    starItem.target = '_blank';
+
+    starItem.className = 'stargazer-item';
+
+    starItem.title = stargazer.login;
+
+    starItem.innerHTML = `
+      <img
+        src="${stargazer.avatar_url}"
+        alt="${stargazer.login}"
+      >
+    `;
+
+    stargazersContainer.appendChild(starItem);
+  });
+}
+
 async function fetchStargazers() {
   const stargazersContainer = document.getElementById('stargazers');
 
+  const errorBox = document.getElementById('stargazersError');
+
+  const errorMessage = document.getElementById('stargazersErrorMessage');
+
+  const loading = document.getElementById('stargazersLoading');
+
+  loading.classList.remove('hidden');
+
+  errorBox.classList.add('hidden');
+
+  stargazersContainer.innerHTML = '';
+
   try {
-    const response = await fetch(
-      `https://api.github.com/repos/${window.REPO_OWNER}/${window.REPO_NAME}/stargazers?per_page=100`
+    const cached = loadCache('stargazers-cache');
+
+    if (cached) {
+      renderStargazers(cached);
+
+      loading.classList.add('hidden');
+
+      return;
+    }
+
+    const stargazers = await githubFetch(
+      `${GITHUB_API_BASE}/repos/${window.REPO_OWNER}/${window.REPO_NAME}/stargazers?per_page=100`
     );
 
-    if (!response.ok) throw new Error('Failed to fetch stargazers');
+    saveCache('stargazers-cache', stargazers);
 
-    const stargazers = await response.json();
-    if (stargazersContainer) stargazersContainer.innerHTML = '';
-
-    stargazers.forEach((stargazer) => {
-      const starItem = document.createElement('a');
-      starItem.href = stargazer.html_url;
-      starItem.target = '_blank';
-      starItem.className = 'stargazer-item';
-      starItem.title = stargazer.login;
-      starItem.innerHTML = `<img src="${stargazer.avatar_url}" alt="${stargazer.login}">`;
-      if (stargazersContainer) stargazersContainer.appendChild(starItem);
-    });
+    renderStargazers(stargazers);
   } catch (error) {
-    console.error('Error fetching stargazers:', error);
+    errorBox.classList.remove('hidden');
+
+    errorMessage.textContent = error.message;
+  } finally {
+    loading.classList.add('hidden');
   }
 }
 
