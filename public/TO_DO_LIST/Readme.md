@@ -74,7 +74,7 @@
 ## 👨‍💻 Author
 
 Gopal Wagh
-- Github - https://github.com/gopalwagh
+- Github - https://github.com/gopalwagh.git
 
 ---
 
