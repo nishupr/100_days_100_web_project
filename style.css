@@ -678,24 +678,27 @@ body.light-mode .navbar {
   position: relative;
   display: flex;
   align-items: center;
+  gap: 10px;
   width: 100%;
-  max-width: 400px; 
+  max-width: 650px;
+  flex-wrap: wrap;
 }
 
 #sortProjects {
-  padding: 10px 14px;
+  min-width: 140px;
+  height: 42px;
+  padding: 0 12px;
   border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background-color: #111827;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: #111827;
   color: #ffffff;
   cursor: pointer;
-  margin-left: 10px;
-  height: 42px;
   outline: none;
+  flex-shrink: 0;
 }
 
 #sortProjects option {
-  background-color: #111827;
+  background: #111827;
   color: #ffffff;
 }
 
