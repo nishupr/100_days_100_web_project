@@ -224,8 +224,10 @@ const PROJECT_DATA = [
   
 
   ['Day 151', 'Mini Carrom Game', './public/mini carrom/index.html', 'html css javascript', 'intermediate'],
-  ['Day 152', 'Material3 Showcase', './public/Material3Showcase/index.html', 'tool javascript', 'intermediate'],
   
+  
+  ['Day 152', 'Physics Ball Simulation', './public/PhysicsBallSimulation/index.html', 'html css javascript canvas', 'advanced'],
+  ['Day 153', 'Material3 Showcase', './public/Material3Showcase/index.html', 'tool javascript', 'intermediate'],
 ];
 const PROJECTS = PROJECT_DATA;
 
