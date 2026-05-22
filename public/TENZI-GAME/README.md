@@ -31,7 +31,7 @@ A simple, fast, and fun dice game built with React. Play against the clock, try 
 ## 🚀 How to Run It Locally
 ```
 1. Go into the project folder:
-    cd tenzies-game
+    cd TENZIES-GAME
 
 2. Install the required packages (including canvas-confetti):
    npm install
