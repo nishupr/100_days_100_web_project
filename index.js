@@ -807,17 +807,19 @@ const PROJECT_DATA = [
     'intermediate',
   ],
   [
-    'Day 117', 
-    'Image To Particle Engine', 
-    './public/image-particle-engine/index.html', 
-    'javascript', 
-    'intermediate'
+    'Day 117',
+    'Image To Particle Engine',
+    './public/image-particle-engine/index.html',
+    'javascript',
+    'intermediate',
   ],
+  [
     'Day 118',
     'Connect4 Game',
     './public/Connect4/index.html',
     'javascript game',
-    'intermediate'
+    'intermediate',
+  ],
 ];
 
 // Alias for consistency
@@ -1386,17 +1388,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const backToTopButton = document.getElementById("backToTop");
 
-window.addEventListener("scroll", () => {
+if (backToTopButton) {
+  window.addEventListener("scroll", () => {
     if (window.scrollY > 200) {
-        backToTopButton.style.display = "block";
+      backToTopButton.style.display = "block";
     } else {
-        backToTopButton.style.display = "none";
+      backToTopButton.style.display = "none";
     }
-});
+  });
 
-backToTopButton.addEventListener("click", () => {
+  backToTopButton.addEventListener("click", () => {
     window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+      top: 0,
+      behavior: "smooth",
     });
-});
+  });
+}
