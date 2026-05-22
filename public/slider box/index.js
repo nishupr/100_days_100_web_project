@@ -336,3 +336,4 @@ window.onload = function() {
 
   updateCounter();
 };
+

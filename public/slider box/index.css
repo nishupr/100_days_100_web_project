@@ -1,15 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body {
   position: relative;
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
-  background: linear-gradient(135deg, #0F172A, #1E1B4B, #312E81, #0F172A);
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
   margin: 0;
   padding: 0;
+  font-family: Inter, "Segoe UI", Helvetica Neue, Arial, sans-serif;
+  font-size: 14px;
+  color: #f8fafc;
+  background: linear-gradient(135deg, #0F172A, #1E1B4B, #312E81, #0F172A);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,11 +21,16 @@ body {
   min-height: 100vh;
 }
 
+button {
+  font: inherit;
+}
+
+/* ── Page title ── */
 h1 {
   font-size: 42px;
   text-align: center;
   color: white;
-  font-weight: bolder;
+  font-weight: 900;
   margin-bottom: 20px;
   letter-spacing: 2px;
 }
@@ -41,7 +50,7 @@ h1 {
   gap: 20px;
 }
 
-/* ── Image wrapper for consistent sizing ── */
+/* ── Image wrapper ── */
 .image-wrapper {
   position: relative;
   width: 350px;
@@ -69,9 +78,9 @@ h1 {
 button {
   width: 50px;
   height: 50px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(15, 23, 42, 0.72);
   color: white;
   font-size: 28px;
   font-weight: bold;
@@ -81,17 +90,17 @@ button {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  backdrop-filter: blur(14px);
 }
 
 button:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   transform: scale(1.1);
 }
 
 /* ── Caption box ── */
 .caption-box {
   text-align: center;
-  transition: opacity 0.4s ease;
 }
 
 .place-name {
@@ -100,12 +109,12 @@ button:hover {
   color: #ffffff;
   margin: 0 0 4px 0;
   transition: opacity 0.3s ease;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .place-location {
   font-size: 14px;
-  color: #a5b4fc;
+  color: #bae6fd;
   margin: 0;
   transition: opacity 0.3s ease;
   letter-spacing: 0.5px;
@@ -115,6 +124,7 @@ button:hover {
 .counter {
   color: rgba(255, 255, 255, 0.6);
   font-size: 13px;
+  font-weight: 800;
   margin: 0;
   letter-spacing: 1px;
 }
@@ -125,7 +135,7 @@ button:hover {
   gap: 8px;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 300px;
+  max-width: 320px;
 }
 
 .dot {
@@ -139,7 +149,7 @@ button:hover {
 }
 
 .dot.active {
-  background: #a5b4fc;
+  background: #7dd3fc;
   transform: scale(1.3);
 }
 
