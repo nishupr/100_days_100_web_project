@@ -13,8 +13,12 @@
     --lt-violet2: hsl(281, 89%, 26%);
     --vb-violet: hsl(285, 91%, 52%);
     --vb-violet2: hsl(290, 70%, 36%);
+
     --vb-yellow: hsl(52, 100%, 62%);
+
+
     --pl-white: hsl(0, 0%, 100%);
+
     --vb-cyan: hsl(176, 100%, 44%);
     --vb-cyan2: hsl(177, 92%, 70%);
     --dk-text: hsl(198, 20%, 13%);
@@ -121,7 +125,7 @@ h1 {
     font-size: 1.5rem;
     line-height: 30px;
     letter-spacing: 1px;
-    padding-right: 3.25rem;
+    padding-right: 5.5rem;
     border: none;
 }
 
@@ -137,11 +141,27 @@ h1 {
     transform: translateY(-50%);
 }
 
-.display-container button {
+.display-container .btns {
     position: absolute;
     top: 50%;
-    right: 1.5rem;
+    right: 1.25rem;
     transform: translateY(-50%);
+    display: flex;
+    gap: 0.5rem;
+}
+.display-container .btns button {
+    background: transparent;
+    border: none;
+    padding: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.eyeBtn .eyeIcon {
+    display: block;
+    width: 22px;
+    height: 22px;
 }
 
 .input-container {
@@ -176,6 +196,7 @@ h1 {
     margin-bottom: 2rem;
 }
 
+
 .strength-container p {
     color: var(--pl-white);
     font-size: 1.5rem;
@@ -189,7 +210,7 @@ h1 {
 
 .generateButton {
     width: 100%;
-    padding: 1rem 0;
+    padding: 1.125rem 0;
     background-color: var(--vb-violet);
     text-align: center;
     border-radius: 0.75rem;
@@ -198,7 +219,7 @@ h1 {
     letter-spacing: 1px;
     color: var(--vb-yellow);
     font-weight: 600;
-    font-size: 1.25rem;
+    font-size: 1.375rem;
 }
 
 .check {
@@ -218,6 +239,7 @@ h1 {
     border-radius: 0.35rem;
 }
 
+
 .check input:checked {
     background-color: var(--vb-cyan);
 }
@@ -226,11 +248,11 @@ h1 {
     content: '✔';
     position: absolute;
     color: var(--dk-text);
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
     left: 50%;
-    top: -3.5px;
-    transform: translateX(-50%) translateY(40%);
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .check label {
@@ -249,20 +271,20 @@ h1 {
     position: absolute;
     background-color: var(--vb-violet2);
     color: var(--vb-yellow);
-    font-size: 1.25rem;
-    top: -35px;
-    left: -25px;
-    padding: 5px 10px;
+    font-size: 1.05rem;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: bottom center;
+    padding: 6px 10px;
     border-radius: 1rem;
     opacity: 0;
-    transform: scale(0);
-    transform-origin: bottom;
-    transition: all 250ms ease-in-out;
+    transition: all 200ms ease-in-out;
 }
 
 .tooltip.active {
     opacity: 1;
-    transform: scale(1);
+    transform: translateX(-50%) scale(1);
 }
 
 .slider {
@@ -278,7 +300,7 @@ h1 {
     background-repeat: no-repeat;
     border: none;
     outline: none;
-    z-index: -1;
+    z-index: 1;
 }
 
 .slider::-webkit-slider-thumb {
@@ -305,6 +327,31 @@ h1 {
     box-shadow: 0px 0px 25px 5px rgba(255, 229, 61, 0.80);
 }
 
+#warningMsg {
+    color: #ff4d4d;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.strength-output {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#strengthText {
+    color: white;
+    font-size: 1rem;
+}
+
+.generateButton:hover,
+.copyBtn:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    transform: scale(1.02);
+    transition: all 0.1s ease;
+}
 
 /*Homework -> Explore below code */
 
@@ -326,3 +373,29 @@ h1 {
     background-color: var(--dk-violet);
     box-shadow: 0px 0px 25px 5px rgba(255, 229, 61, 0.80);
   } */
+
+#hideTimer {
+    color: var(--vb-yellow);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.suggestion {
+    color: #ffd966;
+    text-align: center;
+    margin: 0.5rem 0 0.75rem 0;
+    font-size: 0.95rem;
+}
+
+.strength-info {
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.strength-text {
+    color:white;
+    font-size:1rem;
+    font-weight:600;
+}
