@@ -222,8 +222,9 @@ const PROJECT_DATA = [
   ['Day 151', 'Mini Carrom Game', './public/mini carrom/index.html', 'html css javascript', 'intermediate'],
   ['Day 152', 'Physics Ball Simulation', './public/PhysicsBallSimulation/index.html', 'html css javascript canvas', 'advanced'],
   ['Day 153', 'Material3 Showcase', './public/Material3Showcase/index.html', 'tool javascript', 'intermediate'],
-   ['Day 154', 'FocusRoom', './public/FocusRoom/index.html', 'html css javascript productivity timer tasks ambient', 'intermediate'],
-  ['Day 155', 'Map Route Tracker', './public/Vector-Map-Route-Tracer/index.html', 'html css javascript', 'intermediate'],
+  ['Day 154', 'FocusRoom', './public/FocusRoom/index.html', 'html css javascript productivity timer tasks ambient', 'intermediate'],
+  ['Day 155', 'Placement Predictor', './public/PlacementPredictor/index.html', 'tool javascript html css', 'advanced'],
+  ['Day 156', 'Map Route Tracker', './public/Vector-Map-Route-Tracer/index.html', 'html css javascript', 'intermediate'],
 ];
 const PROJECTS = PROJECT_DATA;
 
@@ -848,6 +849,8 @@ if (recentToggleBtn) {
 
 function showToast(message) {
   const toast = document.getElementById('toast');
+  if (!toast) return;
+
   toast.textContent = message;
   toast.classList.add('show');
 
@@ -863,6 +866,8 @@ document.addEventListener('click', (e) => {
   e.preventDefault();
   const projectDay = bookmarkBtn.dataset.id;
   const project = PROJECTS.find((item) => item[0] === projectDay);
+  if (!project) return;
+
   toggleBookmark(project);
 });
 
@@ -1118,20 +1123,27 @@ function initScrollBtn() {
 /* ============================================================
    INIT
    ============================================================ */
+function hasProjectGrid() {
+  return Boolean(document.getElementById('projectGrid'));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   getAllTechnologies();
 
   initTheme();
   updateNavbar();
-  initFilterChips();
-  initSearch();
-  initTechStackSearch(); // Initialize tech stack search
   syncProjectCounts();
-  renderGrid();
-  renderBookmarks();
-  renderRecentProjects();
   fetchRepoStats();
   initScrollBtn();
+
+  if (hasProjectGrid()) {
+    initFilterChips();
+    initSearch();
+    initTechStackSearch();
+    renderGrid();
+    renderBookmarks();
+    renderRecentProjects();
+  }
 });
 
 
@@ -1175,7 +1187,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Re-render the grid when the browser window is resized to adapt pagination density instantly
 window.addEventListener('resize', () => {
-  renderGrid();
+  if (hasProjectGrid()) {
+    renderGrid();
+  }
 });
 
 /* ============================================================
