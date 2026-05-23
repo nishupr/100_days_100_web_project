@@ -538,27 +538,36 @@ const host = document.getElementById('heroTerminal');
 if (!host) console.error('[hero-terminal] mount target #heroTerminal not found');
 
 if (host) {
+  const screenWidth = window.innerWidth || 0;
+  const isSmallScreen = screenWidth <= 600;
+  const isMediumScreen = screenWidth <= 1024;
+  const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+  const terminalSettings = {
+    scale: isSmallScreen ? 1.05 : isMediumScreen ? 1.3 : 1.5,
+    gridMul: [isSmallScreen ? 1.6 : 2, 1],
+    digitSize: isSmallScreen ? 1 : isMediumScreen ? 1.1 : 1.2,
+    timeScale: 1,
+    scanlineIntensity: isSmallScreen ? 0.8 : 1,
+    flickerAmount: 1,
+    noiseAmp: isSmallScreen ? 0.6 : 1,
+    chromaticAberration: 0,
+    dither: 0,
+    curvature: 0,
+    tint: '#0066ff',
+    mouseReact: !isCoarsePointer,
+    mouseStrength: isSmallScreen ? 0.35 : 0.5,
+    pageLoadAnimation: false,
+    brightness: isSmallScreen ? 0.25 : 0.3,
+    glitchAmount: 1,
+    style: { width: '100%', height: '100%' }
+  };
+
   const root = createRoot(host);
   root.render(
     React.createElement(FaultyTerminal, {
-      scale: 1.5,
-      gridMul: [2, 1],
-      digitSize: 1.2,
-      timeScale: 1,
-      pause: false,
-      scanlineIntensity: 1,
-      flickerAmount: 1,
-      noiseAmp: 1,
-      chromaticAberration: 0,
-      dither: 0,
-      curvature: 0,
-      tint: '#0066ff',
-      mouseReact: true,
-      mouseStrength: 0.5,
-      pageLoadAnimation: false,
-      brightness: 0.3,
-      glitchAmount: 1,
-      style: { width: '100%', height: '100%' }
+      ...terminalSettings,
+      pause: false
     })
   );
 }
