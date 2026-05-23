@@ -59,7 +59,11 @@ class Calculator {
   }
 
   appendNumber(number) {
-    if (number === '.' && this.currentOperand.includes('.')) return;
+    if (number === '.') {
+        const tokens = this.currentOperand.toString().split(/[+\-×÷*/]/);
+        const lastToken = tokens[tokens.length - 1];
+        if (lastToken.includes('.')) return;
+    }
 
     const input = this.currentOperandTextElement;
     const start = this.lastSelectionStart;
