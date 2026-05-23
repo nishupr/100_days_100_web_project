@@ -1,10 +1,10 @@
-# 🚀 TaskFlow — Task Manager
+# TaskFlow:  Modern To-Do List Web Application
 
 TaskFlow is a modern, fully client-side task management web application built using HTML, CSS, and JavaScript. It provides a clean and interactive UI for managing daily tasks with features like filtering, themes, local storage, and PDF export.
 
----
+TaskFlow is a modern and responsive To-Do List web application designed to help users manage daily tasks efficiently with a clean and premium user interface. The project focuses on productivity, simplicity, and enhanced user experience through modern frontend design and interactive features.
 
-## 📌 Features
+## Features
 
 - ➕ Add, edit, complete, and delete tasks
 - 🎯 Filter tasks by status and category
@@ -28,7 +28,7 @@ TaskFlow is a modern, fully client-side task management web application built us
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - HTML5
 - CSS3
@@ -36,9 +36,9 @@ TaskFlow is a modern, fully client-side task management web application built us
 - jsPDF
 - Google Fonts
 
----
+## Installation/Setup
 
-## ▶️ How to Run
+1. Clone the repository:
 
 Clone the repository:
 
@@ -62,9 +62,11 @@ Example:
 public/TO_DO_LIST/todolist.html
 ```
 
----
+2. Open the project folder:
 
-## 📂 Project Structure
+```bash id="0fwb55"
+cd TaskFlow
+```
 
 ```text
 TO_DO_LIST/
@@ -74,9 +76,9 @@ TO_DO_LIST/
 └── README.md
 ```
 
----
+* Open `index.html` in your browser
 
-## 🚀 Future Improvements
+## Usage
 
 - Drag & drop task reordering
 - Due dates & reminders
@@ -84,9 +86,10 @@ TO_DO_LIST/
 - Cloud sync support
 - Automatic dark mode detection
 
----
+## Screenshots
 
-## 🤝 Contributing
+### Home Page UI
+![Home Page](homepage.png)
 
 Fork the repository
 
