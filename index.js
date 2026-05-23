@@ -1121,10 +1121,13 @@ function updateNavbar() {
   const base = isRoot ? '' : '../';
   const isLight = document.body.classList.contains('light-mode');
   const themeButton = `
-            <button class="btn btn-ghost btn-sm" id="themeToggleNav" aria-label="Toggle theme">
-                <i class="fas ${isLight ? 'fa-sun' : 'fa-moon'}"></i>
-            </button>
+        <button class="btn btn-ghost btn-sm" id="themeToggleNav" aria-label="Toggle theme">
+          <i class="fas ${isLight ? 'fa-sun' : 'fa-moon'}"></i> Theme
+        </button>
         `;
+  const otherLink = isRoot
+    ? `<a class="btn btn-ghost btn-sm" href="${base}contributors/contributor.html">Contributors</a>`
+    : `<a class="btn btn-ghost btn-sm" href="${base}index.html">Home</a>`;
 
   if (username) {
     container.innerHTML = `
@@ -1133,9 +1136,9 @@ function updateNavbar() {
             <button class="btn btn-ghost btn-sm" id="logoutBtn">Log out</button>
             <button class="btn btn-ghost btn-sm" id="generateReadmeBtn">Generate README</button>
             <a class="btn btn-ghost btn-sm" href="https://github.com/dhairyagothi/100_days_100_web_project" target="_blank">
-                <i class="fab fa-github"></i> GitHub
+              <i class="fab fa-github"></i> GitHub
             </a>
-            <a class="btn btn-ghost btn-sm" href="${base}contributors/contributor.html">Contributors</a>
+            ${otherLink}
         `;
     document.getElementById('logoutBtn').addEventListener('click', () => {
       window.username = null;
@@ -1146,7 +1149,7 @@ function updateNavbar() {
   } else {
     container.innerHTML = `
             ${themeButton}
-            <a class="btn btn-ghost btn-sm" href="${base}contributors/contributor.html">Contributors</a>
+            ${otherLink}
             <a class="btn btn-ghost btn-sm" href="https://github.com/dhairyagothi" target="_blank">
                 <i class="fab fa-github"></i> GitHub
             </a>
