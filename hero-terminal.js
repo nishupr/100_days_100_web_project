@@ -540,10 +540,15 @@ if (!host) console.error('[hero-terminal] mount target #heroTerminal not found')
 if (host) {
   const root = createRoot(host);
 
+  const getBreakpoint = () => {
+    const screenWidth = window.innerWidth;
+    return screenWidth <= 600 ? 'small' : screenWidth <= 1024 ? 'medium' : 'large';
+  };
+
   const getScreenSettings = () => {
-    const screenWidth = window.innerWidth || 0;
-    const isSmallScreen = screenWidth <= 600;
-    const isMediumScreen = screenWidth <= 1024;
+    const breakpoint = getBreakpoint();
+    const isSmallScreen = breakpoint === 'small';
+    const isMediumScreen = breakpoint === 'medium';
     const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
 
     return {
@@ -568,8 +573,7 @@ if (host) {
   };
 
   const getSizeKey = () => {
-    const screenWidth = window.innerWidth || 0;
-    const size = screenWidth <= 600 ? 'small' : screenWidth <= 1024 ? 'medium' : 'large';
+    const size = getBreakpoint();
     const pointer = window.matchMedia('(pointer: coarse)').matches ? 'coarse' : 'fine';
     return `${size}-${pointer}`;
   };
