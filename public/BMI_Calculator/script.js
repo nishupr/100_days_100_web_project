@@ -340,6 +340,6 @@ document.addEventListener('keydown', function(e) {
 
 document.querySelectorAll('input[type=number]').forEach(function(el) {
   el.addEventListener('wheel', function(e) {
-    e.preventDefault();
-  }, { passive: false });
+    el.blur();  // lose focus so scroll doesn't change the value
+  });
 });
