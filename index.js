@@ -1233,9 +1233,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollBtn();
 
   if (hasProjectGrid()) {
-    initFilterChips();
-    initSearch();
-    initTechStackSearch();
     renderGrid();
     renderBookmarks();
     renderRecentProjects();
