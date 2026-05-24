@@ -1,13 +1,9 @@
 const userInput = document.getElementById("userInput");
 const themeToggle = document.getElementById("themeToggle");
-const pagesContainer =
-document.getElementById("pagesContainer");
-const soundToggle =
-document.getElementById("soundToggle");
-const pageCounter =
-document.getElementById("pageCounter");
-const downloadPDF =
-document.getElementById("downloadPDF");
+const pagesContainer = document.getElementById("pagesContainer");
+const soundToggle = document.getElementById("soundToggle");
+const pageCounter = document.getElementById("pageCounter");
+const downloadPDF = document.getElementById("downloadPDF");
 const copyBtn = document.getElementById("copyBtn");
 const wordCountEl = document.getElementById("wordCount");
 const charCountEl = document.getElementById("charCount");
@@ -15,6 +11,49 @@ let audioCtx;
 let currentPage = 0;
 let paperContent = '';
 let soundEnabled = true;
+let capsLockEnabled = false;
+let capsLockKey;
+
+document.addEventListener("DOMContentLoaded", () => {
+    capsLockKey = document.querySelector(".caps-lock");
+    
+    /* ---------- Onscreen Keys ---------- */
+    document.querySelectorAll(".key").forEach(key=>{
+        key.onclick=()=>{
+        const ch = key.dataset.char;
+        if(ch==="BACKSPACE"){
+            deleteCharFromPaper();
+            return;
+        }
+        if(ch==="ENTER"){
+            paperContent+="\n";
+            getCurrentText().textContent=paperContent;
+            playReturn();
+            updateCopyButtonState();
+            updateCounters();
+        return;
+        }
+        if(ch==="SPACE"){
+            addCharToPaper(" ");
+            return;
+        }
+        if(ch==="CAPSLOCK"){
+            capsLockEnabled = !capsLockEnabled;
+            capsLockKey.setAttribute("aria-pressed", capsLockEnabled);
+            capsLockKey.classList.toggle("pressed", capsLockEnabled);
+            return;
+        }
+        
+        let charToAdd;
+        if (capsLockEnabled) {
+            charToAdd = ch.toUpperCase();
+        } else {
+            charToAdd = ch.toLowerCase();
+        }
+        addCharToPaper(charToAdd);
+        };
+    });
+});
 
 /* ---------- Pages ---------- */
 
@@ -93,14 +132,15 @@ function playBackspace(){
 function addCharToPaper(ch){
     paperContent += ch;
     getCurrentText().textContent = paperContent;
-    if(ch===" ")
+    if(ch===" ") {
         playSpaceClick();
-
-    else
+        flashKey("SPACE");
+    }
+    else {
         playKeyClick();
-
-    if(ch!=="\n")
-        flashKey(ch.toUpperCase());
+        if(ch!=="\n")
+            flashKey(ch.toUpperCase());
+    }
 
     /* overflow check */
     let page = document.querySelectorAll(".paper-sheet")[currentPage];
@@ -158,33 +198,32 @@ document.addEventListener("keydown",(e)=>{
         updateCounters();
         return;
     }
+    if(e.key === "CapsLock"){
+        e.preventDefault();
+        capsLockEnabled = !capsLockEnabled;
+        if(capsLockKey){
+            capsLockKey.setAttribute("aria-pressed", capsLockEnabled);
+            capsLockKey.classList.toggle("pressed", capsLockEnabled);
+        }
+        return;
+    }
+    if(e.key === " "){
+        e.preventDefault();
+        addCharToPaper(" ");
+        return;
+    }
 
 
     if(e.key.length===1){
         e.preventDefault();
-        addCharToPaper(e.key.toUpperCase());
+        let charToAdd;
+        if (capsLockEnabled) {
+            charToAdd = e.key.toUpperCase();
+        } else {
+            charToAdd = e.key.toLowerCase();
+        }
+        addCharToPaper(charToAdd);
     }
-});
-
-/* ---------- Onscreen Keys ---------- */
-
-document.querySelectorAll(".key").forEach(key=>{
-    key.onclick=()=>{
-    const ch = key.dataset.char;
-    if(ch==="BACKSPACE"){
-        deleteCharFromPaper();
-        return;
-    }
-    if(ch==="ENTER"){
-        paperContent+="\n";
-        getCurrentText().textContent=paperContent;
-        playReturn();
-        updateCopyButtonState();
-        updateCounters();
-    return;
-    }
-    addCharToPaper(ch);
-    };
 });
 
 
@@ -305,5 +344,7 @@ copyBtn.onclick = async () => {
     }
 };
 
-updateCopyButtonState();
-updateCounters();
+document.addEventListener("DOMContentLoaded", () => {
+    updateCopyButtonState();
+    updateCounters();
+});
