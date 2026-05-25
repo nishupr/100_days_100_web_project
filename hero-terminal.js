@@ -55,7 +55,7 @@ function renderLiteTerminal(host, reason = 'lite') {
       </div>
       <div class="hero-terminal-line">
         <span class="hero-terminal-prompt">archive:focus</span>
-        <span class="hero-terminal-text">optimized visuals enabled for mobile and reduced-motion devices</span>
+        <span class="hero-terminal-text">optimized visuals are enabled for mobile and reduced-motion devices</span>
       </div>
       <div class="hero-terminal-line">
         <span class="hero-terminal-prompt">archive:status</span>
