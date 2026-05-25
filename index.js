@@ -240,6 +240,7 @@ const PROJECT_DATA = [
   ['Day 173', 'AI-Resume-Analyzer', './public/AI-Resume-Analyzer/index.html', ['tool', 'javascript', 'html', 'css'], 'advanced'],
   ['Day 174', 'Unit Kitchen', './public/Unit-Kitchen/index.html', ['html', 'css', 'javascript','game'], 'intermediate'],
    ['Day 175', 'Fruit Slice game', './public/fruitslice/index.html', ['html', 'css', 'javascript','game'], 'intermediate'],
+   ['Day 176', 'Web Kernal Simulator', './public/Web-Kernal-simulator/index.html', ['html', 'css', 'javascript','simulator'], 'intermediate'],
 
 ];
 const PROJECTS = PROJECT_DATA;
