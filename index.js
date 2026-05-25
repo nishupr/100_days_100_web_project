@@ -760,10 +760,47 @@ function toggleBookmark(project) {
   }
 
   localStorage.setItem('bookmarkedProjects', JSON.stringify(bookmarkedProjects));
+
+  updateBookmarkURL();
+
   renderBookmarks();
   renderGrid();
   renderRecentProjects();
 }
+
+function updateBookmarkURL() {
+  const url = new URL(window.location);
+
+  if (bookmarkedProjects.length > 0) {
+    const bookmarkIds = bookmarkedProjects.map(project => project[0]);
+    url.searchParams.set('bookmarks', bookmarkIds.join(','));
+  } else {
+    url.searchParams.delete('bookmarks');
+  }
+
+  window.history.replaceState({}, '', url);
+}
+
+function loadBookmarksFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const bookmarkParam = params.get('bookmarks');
+
+  if (!bookmarkParam) return;
+
+  const bookmarkIds = bookmarkParam
+    .split(',')
+    .map(id => id.trim());
+
+  bookmarkedProjects = PROJECTS.filter(project =>
+    bookmarkIds.includes(project[0])
+  );
+
+  localStorage.setItem(
+    'bookmarkedProjects',
+    JSON.stringify(bookmarkedProjects)
+  );
+}
+
 
 function trackRecentProject(project) {
   recentProjects = recentProjects.filter((item) => item[0] !== project[0]);
@@ -1267,6 +1304,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollBtn();
 
   if (hasProjectGrid()) {
+    loadBookmarksFromURL();
+    
     renderGrid();
     renderBookmarks();
     renderRecentProjects();
