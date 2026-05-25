@@ -238,6 +238,8 @@ const PROJECT_DATA = [
   ["Day 171", "Glyph Pattern Maker", "./public/GlyphPatternMaker/index.html", ['tool','html','css' ,'javascript'],'advanced'],
   ['Day 172', 'PlaceMate', './public/PlaceMate/index.html', ['tool', 'javascript', 'html', 'css'], 'advanced'],
   ['Day 173', 'AI-Resume-Analyzer', './public/AI-Resume-Analyzer/index.html', ['tool', 'javascript', 'html', 'css'], 'advanced'],
+  ['Day 174', 'Unit Kitchen', './public/Unit-Kitchen/index.html', ['html', 'css', 'javascript','game'], 'intermediate'],
+
 ];
 const PROJECTS = PROJECT_DATA;
 
