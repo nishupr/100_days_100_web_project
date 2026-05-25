@@ -1237,6 +1237,20 @@ function initScrollBtn() {
     if (ring) {
       ring.style.strokeDashoffset = circumference * (1 - progress);
     }
+
+    // Footer collision avoidance
+    const footer = document.querySelector('.footer');
+    if (footer) {
+      const footerRect = footer.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      if (footerRect.top < windowHeight) {
+        const overlap = windowHeight - footerRect.top;
+        btn.style.bottom = `calc(2rem + ${overlap}px)`;
+      } else {
+        btn.style.bottom = '2rem';
+      }
+    }
   };
 
   updateScrollProgress();
