@@ -537,6 +537,7 @@ function FaultyTerminal({
     return () => {
       cancelAnimationFrame(rafRef.current);
       resizeObserver.disconnect();
+      clearTimeout(resizeTimeout);
       document.removeEventListener('visibilitychange', handleVisibility);
       if (mouseReact && !isTouchDevice && fallbackCleanup === null) container.removeEventListener('mousemove', handleMouseMove);
       if (gl && gl.canvas && gl.canvas.parentElement === container) container.removeChild(gl.canvas);
