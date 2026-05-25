@@ -1246,7 +1246,11 @@ function initScrollBtn() {
       
       if (footerRect.top < windowHeight) {
         const overlap = windowHeight - footerRect.top;
-        btn.style.bottom = `calc(2rem + ${overlap}px)`;
+        // Cap the upward movement to a maximum of 120px.
+        // This ensures it dodges the important bottom footer links but 
+        // doesn't fly completely off the top of the screen when the footer is huge.
+        const maxOverlap = Math.min(overlap, 120);
+        btn.style.bottom = `calc(2rem + ${maxOverlap}px)`;
       } else {
         btn.style.bottom = '2rem';
       }
