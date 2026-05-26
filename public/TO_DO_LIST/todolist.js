@@ -150,17 +150,31 @@ function updateMetrics() {
 
 // 4. Tab Navigation System
 function showHome() {
-  document.getElementById("btn-home").classList.add("active");
-  document.getElementById("btn-docs").classList.remove("active");
+  document.getElementById("nav-home").classList.add("active");
+  document.getElementById("nav-documents").classList.remove("active");
+  document.getElementById("home-tab").removeAttribute("hidden");
   document.getElementById("home-tab").style.display = "block";
+  document.getElementById("documents-tab").setAttribute("hidden", "");
   document.getElementById("documents-tab").style.display = "none";
 }
 
 function showDocuments() {
-  document.getElementById("btn-home").classList.remove("active");
-  document.getElementById("btn-docs").classList.add("active");
+  document.getElementById("nav-home").classList.remove("active");
+  document.getElementById("nav-documents").classList.add("active");
+  document.getElementById("home-tab").setAttribute("hidden", "");
   document.getElementById("home-tab").style.display = "none";
+  document.getElementById("documents-tab").removeAttribute("hidden");
   document.getElementById("documents-tab").style.display = "block";
+}
+
+// Wire up nav link click listeners
+const navHome = document.getElementById("nav-home");
+const navDocuments = document.getElementById("nav-documents");
+if (navHome) {
+  navHome.addEventListener("click", (e) => { e.preventDefault(); showHome(); });
+}
+if (navDocuments) {
+  navDocuments.addEventListener("click", (e) => { e.preventDefault(); showDocuments(); });
 }
 
 // 5. Theme Customization System
