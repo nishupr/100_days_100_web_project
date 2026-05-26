@@ -216,9 +216,15 @@ function saveAsPDF() {
     return;
   }
 
+  // Snapshot the current task list at this exact moment
+  const snapshot = [...tasks];
+  const doneCount = snapshot.filter(t => t.completed).length;
+  const pendingCount = snapshot.length - doneCount;
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
+  // jsPDF v2.x API: doc.text(text, x, y)
   doc.setFont("Helvetica", "bold");
   doc.setFontSize(22);
   doc.text("TaskFlow Agenda Report", 20, 24);
@@ -226,30 +232,32 @@ function saveAsPDF() {
   doc.setFont("Helvetica", "normal");
   doc.setFontSize(10);
   doc.text(`Generated on: ${new Date().toLocaleString()}`, 20, 32);
-  doc.line(20, 36, 190, 36);
+  doc.text(`Tasks: ${snapshot.length} total  |  ${doneCount} done  |  ${pendingCount} pending`, 20, 38);
+  doc.line(20, 42, 190, 42);
 
-  let verticalCursor = 46;
+  let verticalCursor = 52;
   doc.setFontSize(12);
 
-  tasks.forEach((task, index) => {
+  snapshot.forEach((task, index) => {
+    if (verticalCursor > 270) { doc.addPage(); verticalCursor = 20; }
     const status = task.completed ? "[DONE]" : "[PENDING]";
     const printLine = `${index + 1}. ${status} (${task.category}) — ${task.text}`;
-
-    doc.text(20, verticalCursor, printLine);
+    doc.text(printLine, 20, verticalCursor);
     verticalCursor += 10;
   });
 
+  const timeLabel = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const fileName = `TaskFlow_${Date.now()}.pdf`;
   const fileURL = URL.createObjectURL(doc.output("blob"));
 
-  appendDocumentToList(fileName, fileURL);
-  showToast("📥 Exported list to Documents Tab!");
+  appendDocumentToList(fileName, fileURL, snapshot.length, doneCount, timeLabel);
+  showToast(`📥 Saved ${snapshot.length} task${snapshot.length !== 1 ? 's' : ''} to Documents!`);
 
   // Auto-navigate to Documents tab so the user sees the new entry
   showDocuments();
 }
 
-function appendDocumentToList(fileName, fileURL) {
+function appendDocumentToList(fileName, fileURL, taskCount, doneCount, timeLabel) {
   // Hide the empty-state placeholder (it is a sibling of the ul, not inside it)
   const docEmptyState = document.getElementById("emptyDocsState");
   if (docEmptyState) docEmptyState.style.display = "none";
@@ -258,15 +266,22 @@ function appendDocumentToList(fileName, fileURL) {
   docItem.className = "doc-item";
   docItem.innerHTML = `
     <div class="doc-icon">📄</div>
-    <div class="doc-name">${fileName}</div>
-    <div class="doc-date">${new Date().toLocaleDateString()}</div>
+    <div class="doc-info">
+      <div class="doc-name">${fileName}</div>
+      <div class="doc-meta">
+        <span class="doc-date">${new Date().toLocaleDateString()} ${timeLabel || ''}</span>
+        <span class="doc-task-count">${taskCount} task${taskCount !== 1 ? 's' : ''} · ${doneCount} done</span>
+      </div>
+    </div>
     <div class="doc-actions">
       <button class="doc-btn" onclick="window.open('${fileURL}', '_blank')">View</button>
-      <a class="doc-btn" href="${fileURL}" download="${fileName}" style="text-decoration:none; display:inline-block; text-align:center;">Download</a>
+      <a class="doc-btn" href="${fileURL}" download="${fileName}" style="text-decoration:none;display:inline-block;text-align:center;">Download</a>
       <button class="doc-btn del" onclick="removeDocumentItem(this)">Delete</button>
     </div>
   `;
-  documentsList.appendChild(docItem);
+  // PREPEND so newest document is always at the TOP — prevents users from
+  // accidentally viewing an older document and thinking tasks are missing.
+  documentsList.prepend(docItem);
 }
 
 function removeDocumentItem(button) {
