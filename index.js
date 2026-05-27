@@ -611,6 +611,9 @@ const PROJECT_DESCRIPTIONS = {
 
   "Focus Timer":
     "A minimal Pomodoro-style productivity timer to boost focus with custom work and break intervals. Built with React, TypeScript and Tailwind CSS.",
+  
+  "Web-Kernal-simulator":
+  "WebKernel is an experimental browser-based project that simulates kernel-like control over web processes using pure HTML, CSS, and JavaScript.",
 
 };
 
