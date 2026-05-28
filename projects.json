@@ -1846,7 +1846,16 @@
   },
   {
     "projectNo": 187,
-    "projectName": "Endless train game",
+    "projectName": "Image Compressor Web App",
+    "projectType": "Tool",
+    "projectDesc": "Modern utility app to compress and optimize images directly in the browser with beautiful glassmorphism UI.",
+    "techStack": ["tool", "html", "css", "javascript", "ui"],
+    "difficulty": "intermediate",
+    "projectPath": "./public/ImageCompressor/index.html"
+  },
+  {
+    "projectNo": 188,
+     "projectName": "Endless train game",
     "projectType": "game",
     "projectDesc": "A game with train moving on rails and switching tails and earning coins.",
     "techStack": [ "html", "css", "javascript"],
