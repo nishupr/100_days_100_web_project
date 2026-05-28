@@ -1,34 +1,28 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Advanced Personal Finance Tracker</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Tracker</title>
+    <link rel="icon" href="../favv.png" type="image/x-icon" />
     <style>
-      :root {
-        --bg: #070b1a;
-        --card: rgba(255, 255, 255, 0.06);
-        --border: rgba(255, 255, 255, 0.08);
-        --text: #ffffff;
-        --primary: #8b5cf6;
-        --secondary: #06b6d4;
-        --success: #10b981;
-        --danger: #ef4444;
-        --warning: #f59e0b;
-      }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --background-color: #f0f3f6;
+            --text-color: #2d3436;
+            --card-background: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
       body {
         font-family: "Inter", sans-serif;
@@ -349,15 +343,22 @@
         }
       }
     </style>
-  </head>
-  <body>
-    <canvas id="bg"></canvas>
+</head>
 
-    <div class="container">
-      <header>
-        <h1>Finance Tracker</h1>
-        <p>AI Styled Advanced Personal Finance Dashboard</p>
-      </header>
+<body>
+<a href="/" class="project-back-button" style="position:fixed;left:18px;top:18px;padding:8px 12px;border-radius:8px;background:linear-gradient(90deg, rgba(124,99,255,0.14), rgba(79,141,255,0.10));color:#fff;text-decoration:none;z-index:9999;font-weight:700;font-family:Inter, system-ui, sans-serif;box-shadow:0 8px 20px rgba(12,18,40,0.35);">← Back to Home</a>
+
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+    <header>
+        <div class="container">
+            <h1>Personal Finance Tracker</h1>
+        </div>
+    </header>
 
       <div class="dashboard">
         <div class="card balance">
@@ -404,22 +405,53 @@
               <option value="entertainment">Entertainment</option>
               <option value="investment">Investment</option>
             </select>
-          </div>
-
-          <button class="main-btn">Add Transaction</button>
+            <input type="submit" value="Add Transaction">
+            <button onclick="exportCSV()">
+    Export CSV
+</button>
         </form>
-      </div>
 
-      <div class="section">
-        <h2 class="section-title">Search Transaction</h2>
+        <!-- ===== SAVINGS PROGRESS TRACKER ===== -->
+        <div id="savings-section">
+            <h2>🎯 Savings Progress Tracker</h2>
 
-        <input
-          type="text"
-          id="search"
-          class="search-box"
-          placeholder="Search anything..."
-        />
-      </div>
+            <form id="goal-form">
+                <h3>Create a New Savings Goal</h3>
+                <input type="text" id="goal-title" placeholder="Goal Name (e.g. Buy Laptop)" required>
+                <input type="number" id="goal-target" placeholder="Target Amount ($)" step="0.01" required>
+                <input type="date" id="goal-date" required>
+                <input type="submit" value="➕ Create Goal">
+            </form>
+
+            <p id="no-goals-message">No savings goals yet. Create one above! 🚀</p>
+            <div id="goals-container"></div>
+
+            <!-- Savings Analytics -->
+            <div id="savings-analytics">
+                <h3>📈 Savings Analytics</h3>
+                <div class="analytics-grid">
+                    <div class="analytic-card">
+                        <div class="analytic-value" id="analytic-total-saved">$0</div>
+                        <div class="analytic-label">Total Saved</div>
+                    </div>
+                    <div class="analytic-card">
+                        <div class="analytic-value" id="analytic-savings-rate">0%</div>
+                        <div class="analytic-label">Savings Rate</div>
+                    </div>
+                    <div class="analytic-card">
+                        <div class="analytic-value" id="analytic-goals-count">0</div>
+                        <div class="analytic-label">Active Goals</div>
+                    </div>
+                    <div class="analytic-card">
+                        <div class="analytic-value" id="analytic-goals-completed">0</div>
+                        <div class="analytic-label">Goals Completed</div>
+                    </div>
+                </div>
+                <div id="savings-chart-container">
+                    <canvas id="savings-chart"></canvas>
+                </div>
+            </div>
+        </div>
 
       <div class="section">
         <h2 class="section-title">Analytics</h2>
@@ -755,65 +787,206 @@
           return g;
         });
 
-        saveData();
+        // ---- Delete a goal ----
+        function deleteGoal(id) {
+            if (!confirm('Delete this savings goal?')) return;
+            savingsGoals = savingsGoals.filter(g => g.id !== id);
+            localStorage.setItem('savingsGoals', JSON.stringify(savingsGoals));
+            renderGoals();
+        }
 
+        // ---- Open contribute modal ----
+        function openContributeModal(id) {
+            activeContributeGoalId = id;
+            const goal = savingsGoals.find(g => g.id === id);
+            modalGoalName.textContent = `Goal: ${goal.title} — $${goal.saved.toFixed(2)} / $${goal.target.toFixed(2)}`;
+            contributeAmountInput.value = '';
+            contributeModal.classList.add('active');
+        }
+
+        document.getElementById('btn-cancel-contribute').addEventListener('click', () => {
+            contributeModal.classList.remove('active');
+            activeContributeGoalId = null;
+        });
+
+        document.getElementById('btn-confirm-contribute').addEventListener('click', () => {
+            const amount = parseFloat(contributeAmountInput.value);
+            if (isNaN(amount) || amount <= 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+            const goal = savingsGoals.find(g => g.id === activeContributeGoalId);
+            if (!goal) return;
+            goal.saved = parseFloat((goal.saved + amount).toFixed(2));
+            goal.contributions = goal.contributions || [];
+            goal.contributions.push({
+                amount,
+                date: new Date().toISOString().split('T')[0]
+            });
+            localStorage.setItem('savingsGoals', JSON.stringify(savingsGoals));
+            contributeModal.classList.remove('active');
+            activeContributeGoalId = null;
+            renderGoals();
+        });
+
+        // ---- Toggle contribution history ----
+        function toggleHistory(btn) {
+            const historyEl = btn.nextElementSibling;
+            historyEl.classList.toggle('open');
+            btn.textContent = historyEl.classList.contains('open') ? '🔼 Hide History' : '📋 View History';
+        }
+
+        // ---- Savings Analytics ----
+        function updateSavingsAnalytics() {
+            const totalSaved = savingsGoals.reduce((acc, g) => acc + g.saved, 0);
+            const completedGoals = savingsGoals.filter(g => getGoalStatus(g) === 'completed').length;
+            const activeGoals = savingsGoals.filter(g => getGoalStatus(g) !== 'completed').length;
+
+            // Savings rate: totalSaved / totalIncome * 100
+            const totalIncome = transactions
+                .filter(t => t.type === 'income')
+                .reduce((acc, t) => acc + t.amount, 0);
+            const savingsRate = totalIncome > 0 ? ((totalSaved / totalIncome) * 100).toFixed(1) : 0;
+
+            document.getElementById('analytic-total-saved').textContent = `$${totalSaved.toFixed(0)}`;
+            document.getElementById('analytic-savings-rate').textContent = `${savingsRate}%`;
+            document.getElementById('analytic-goals-count').textContent = activeGoals;
+            document.getElementById('analytic-goals-completed').textContent = completedGoals;
+
+            updateSavingsChart();
+        }
+
+        // ---- Savings Chart (bar: goal progress) ----
+        function updateSavingsChart() {
+            if (window.savingsChart) {
+                window.savingsChart.destroy();
+            }
+            if (savingsGoals.length === 0) return;
+
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const labels = savingsGoals.map(g => g.title);
+            const savedData = savingsGoals.map(g => g.saved);
+            const remainingData = savingsGoals.map(g => Math.max(g.target - g.saved, 0));
+
+            const ctx = document.getElementById('savings-chart').getContext('2d');
+            window.savingsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Saved',
+                            data: savedData,
+                            backgroundColor: 'rgba(46, 204, 113, 0.75)',
+                            borderColor: '#27ae60',
+                            borderWidth: 2,
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Remaining',
+                            data: remainingData,
+                            backgroundColor: 'rgba(108, 92, 231, 0.3)',
+                            borderColor: 'rgba(108, 92, 231, 0.7)',
+                            borderWidth: 2,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Savings Goals Progress',
+                            font: { size: 16 },
+                            color: isDarkMode ? '#e0e0e0' : '#2d3436'
+                        },
+                        legend: {
+                            labels: { color: isDarkMode ? '#e0e0e0' : '#2d3436' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            ticks: { color: isDarkMode ? '#e0e0e0' : '#2d3436' },
+                            grid: { color: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }
+                        },
+                        y: {
+                            stacked: true,
+                            ticks: { color: isDarkMode ? '#e0e0e0' : '#2d3436' },
+                            grid: { color: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }
+                        }
+                    },
+                    animation: { duration: 800 }
+                }
+            });
+        }
+
+        // ---- Close modal on overlay click ----
+        contributeModal.addEventListener('click', function(e) {
+            if (e.target === contributeModal) {
+                contributeModal.classList.remove('active');
+                activeContributeGoalId = null;
+            }
+        });
+
+        // ---- Init savings on page load ----
         renderGoals();
-
-        showToast("Savings Updated");
-      }
-
-      renderTransactions();
-      updateDashboard();
-      updateChart();
-      renderGoals();
-
-      const canvas = document.getElementById("bg");
-
-      const ctx = canvas.getContext("2d");
-
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
-
-      const particles = [];
-
-      for (let i = 0; i < 100; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 3,
-          dx: Math.random() - 0.5,
-          dy: Math.random() - 0.5,
-        });
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        particles.forEach((p) => {
-          ctx.beginPath();
-
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-
-          ctx.fillStyle = "rgba(255,255,255,.4)";
-
-          ctx.fill();
-
-          p.x += p.dx;
-          p.y += p.dy;
-
-          if (p.x < 0 || p.x > canvas.width) {
-            p.dx *= -1;
-          }
-
-          if (p.y < 0 || p.y > canvas.height) {
-            p.dy *= -1;
-          }
-        });
-
-        requestAnimationFrame(animate);
-      }
-
-      animate();
     </script>
-  </body>
+    function exportCSV() {
+
+    let csv =
+        "Title,Amount,Type,Date\n";
+
+    transactions.forEach(transaction => {
+
+        csv +=
+            `${transaction.title},
+${transaction.amount},
+${transaction.type},
+${transaction.date}\n`;
+
+    });
+
+    const blob =
+        new Blob([csv], {
+            type: "text/csv"
+        });
+
+    const link =
+        document.createElement("a");
+
+    link.href =
+        URL.createObjectURL(blob);
+
+    link.download =
+        "finance-report.csv";
+
+    link.click();
+}
+    function generateMonthlyReport() {
+
+    let income = 0;
+    let expense = 0;
+
+    transactions.forEach(transaction => {
+
+        if (transaction.type === "income") {
+            income += Number(transaction.amount);
+        } else {
+            expense += Number(transaction.amount);
+        }
+
+    });
+
+    document.getElementById("monthlyIncome").innerText = `₹${income}`;
+
+    document.getElementById("monthlyExpense").innerText = `₹${expense}`;
+
+    document.getElementById("monthlyBalance").innerText =
+        `₹${income - expense}`;
+}
+</body>
+
 </html>
