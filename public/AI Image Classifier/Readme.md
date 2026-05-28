@@ -54,7 +54,7 @@ AI Image Classifier/
 Here is a visual example of the AI Image Classifier in action:
 
 <div align="center">
-  <img src="./screenshots/bag_analysis.jpg" alt="Bag Analysis Screenshot" width="700"/>
+  <img src="./screenshots/bag_analysis.jpg" alt="Bag Analysis Screenshot"/>
 </div>
 ---
 
