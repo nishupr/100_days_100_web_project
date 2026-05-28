@@ -5,6 +5,8 @@ const game_container = document.getElementById('game-container')
 const timeEl = document.getElementById('time')
 const scoreEl = document.getElementById('score')
 const message = document.getElementById('message')
+
+// End game popup and final result elements
 const endBtn = document.getElementById('end-btn')
 const gameOverPopup = document.getElementById('game-over')
 const yesBtn = document.getElementById('yes-btn')
@@ -12,10 +14,11 @@ const noBtn = document.getElementById('no-btn')
 const finalResult = document.getElementById('final-result')
 const finalScore = document.getElementById('final-score')
 const finalTime = document.getElementById('final-time')
+
 let seconds = 0
 let score = 0
 let selected_insect = {}
-let gameInterval
+let gameInterval // Stores the time interval
 
 start_btn.addEventListener('click', () => screens[0].classList.add('up'))
 
@@ -85,16 +88,20 @@ function increaseScore() {
     scoreEl.innerHTML = `Score: ${score}`
 }
 
+// Show confirmation popup when user clicks 'End Game' button
 endBtn.addEventListener('click', () => {
     gameOverPopup.style.display = 'flex'
 })
 
+// Resume game
 noBtn.addEventListener('click', () => {
     gameOverPopup.style.display = 'none'
 })
 
+// Ends the game 
 yesBtn.addEventListener('click', endGame)
 
+// Stops timer, removes insects and display final results
 function endGame() {
     clearInterval(gameInterval)
     document.querySelectorAll('.insect').forEach(insect => {
