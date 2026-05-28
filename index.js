@@ -160,9 +160,12 @@ function resolveProjectUrls(day, name, url, tags) {
 
   if (!sourceOnly && demoUrl && !demoUrl.startsWith('http')) {
     try {
-      demoUrl = new URL(demoUrl, window.location.href).href;
+      const isRoot = !window.location.pathname.includes('/contributors/');
+      const basePrefix = isRoot ? '' : '../';
+      if (demoUrl.startsWith('./')) {
+        demoUrl = basePrefix + demoUrl.substring(2);
+      }
     } catch (error) {
-      // Keep the original path if URL normalization fails.
     }
   }
 
@@ -171,8 +174,8 @@ function resolveProjectUrls(day, name, url, tags) {
 
 function getProjectDescription(project) {
   return (
-      project[5] ||
-      'Explore this project to discover interactive functionality.'
+    (project && project[5]) ||
+    'Explore this project to discover interactive functionality.'
   );
 }
 
@@ -278,8 +281,9 @@ function normalizeTech(tech) {
 }
 
 /**
- * Check if project matches the active tech stack filters
- * EFFICIENT APPROACH: Direct string matching without complex transformations
+ * Check if project matches the active tech stack filters.
+ * Each filter must match a complete tag token, not a substring of another tag.
+ * Example: searching "java" must not return projects tagged "javascript".
  * @param {string|array} projectTags - Project tags (space-separated string or array)
  * @returns {boolean} True if project matches all active filters
  */
@@ -290,12 +294,17 @@ function matchesTechStack(projectTags) {
   // Handle empty or missing tags
   if (!projectTags) return false;
 
-  // Convert to single lowercase string for efficient matching
-  const tagsLower = (typeof projectTags === 'string' ? projectTags : projectTags.join(' ')).toLowerCase();
+  // Normalize to a set of individual lowercase tokens for whole-word matching.
+  // Using a Set avoids repeated linear scans for each filter.
+  const tagSet = new Set(
+    (Array.isArray(projectTags) ? projectTags : String(projectTags).split(/\s+/))
+      .map((t) => t.toLowerCase().trim())
+      .filter(Boolean)
+  );
 
-  // EFFICIENT: Check if ALL filters exist in tags (AND logic)
-  // Uses simple includes() - O(n*m) where n=filters, m=tag length
-  return techStackFilters.every(filter => tagsLower.includes(filter));
+  // Every active filter must match an exact token in the tag set (AND logic).
+  // This prevents "java" from matching "javascript", "css" from matching "canvas", etc.
+  return techStackFilters.every((filter) => tagSet.has(filter.toLowerCase()));
 }
 
 
@@ -997,7 +1006,7 @@ function renderRecentProjects() {
       tags,
       category,
       isBookmarked,
-      showDescription: false,
+      showDescription: true,
     });
 
     card.className = sourceOnly ? 'project-card source-only' : 'project-card';
