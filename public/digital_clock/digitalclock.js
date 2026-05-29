@@ -472,17 +472,30 @@ function renderHistoryLogs() {
     .join("");
 }
 
-function addHistoryLog(text) {
-  historyLogs.unshift({ text });
-  if (historyLogs.length > 50) historyLogs.pop();
-  localStorage.setItem("clock_historyLogs", JSON.stringify(historyLogs));
-}
+ function toggleDarkMode() {
+    const isLight = document.body.classList.toggle('light-mode');
+    document.querySelector('.dark-mode-btn').textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
+    localStorage.setItem('lightMode', isLight);
+  }
 
-function toggleHistoryLogs() {
-  const logs = document.getElementById("history-logs");
-  if (!logs) return;
-  logs.classList.toggle("hidden");
-  if (historyHeader) historyHeader.classList.toggle("open");
+  if (localStorage.getItem('lightMode') === 'true') {
+    document.body.classList.add('light-mode');
+    document.querySelector('.dark-mode-btn').textContent = '🌙 Dark Mode';
+  } 
+function clearAlarm() {
+
+  localStorage.removeItem(
+    "alarmTime"
+  );
+
+  alarmTime = null;
+
+  alarmTriggered = false;
+
+  alarmStatus.textContent =
+    "Not Set";
+
+  showToast("Alarm cleared");
 }
 
 // ================= TIMEZONE DROPDOWN =================
