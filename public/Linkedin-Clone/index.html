@@ -77,18 +77,19 @@
     <div class="container">
 
       <div class="left-sidebar">
-        <!-- Profile Card -->
-        <aside class="profile-card card">
-          <div class="cover"><img src="images/cover-pic.png" alt="Cover" /></div>
-          <div class="profile-overlap">
-            <img src="images/user-2.png" alt="Profile" />
-          </div>
-          <div class="profile-body">
-            <h2>Jane Smith</h2>
-            <p class="title">Software Engineer at Google</p>
-            
-          </div>
-        </aside>
+        <!-- Profile Card — FIX: wrapped in <a> to make it clickable (Issue #5195) -->
+        <a href="profile.html" class="profile-card-link" aria-label="View Jane Smith's profile">
+          <aside class="profile-card card">
+            <div class="cover"><img src="images/cover-pic.png" alt="Cover" /></div>
+            <div class="profile-overlap">
+              <img src="images/user-2.png" alt="Profile" />
+            </div>
+            <div class="profile-body">
+              <h2>Jane Smith</h2>
+              <p class="title">Software Engineer at Google</p>
+            </div>
+          </aside>
+        </a>
 
         <!-- Premium Card -->
         <aside class="premium-card card">
@@ -170,10 +171,7 @@
           <div class="post-activity">
             <div>
               <img src="images/user-2.png" class="post-activity-user-icon" />
-              <img
-                src="images/down-arrow.png"
-                class="post-activity-arrow-icon"
-              />
+              <img src="images/down-arrow.png" class="post-activity-arrow-icon" />
             </div>
             <div class="post-activity-link">
               <img src="images/like.png" />
@@ -222,10 +220,7 @@
           <div class="post-activity">
             <div>
               <img src="images/user-2.png" class="post-activity-user-icon" />
-              <img
-                src="images/down-arrow.png"
-                class="post-activity-arrow-icon"
-              />
+              <img src="images/down-arrow.png" class="post-activity-arrow-icon" />
             </div>
             <div class="post-activity-link">
               <img src="images/like.png" />
@@ -261,7 +256,6 @@
             all major search engines then you are ahead among your competitors.
           </p>
           <img src="images/post-image-3.png" width="100%" />
-
           <div class="post-stats">
             <div>
               <img src="images/thumbsup.png" />
@@ -276,10 +270,7 @@
           <div class="post-activity">
             <div>
               <img src="images/user-1.png" class="post-activity-user-icon" />
-              <img
-                src="images/down-arrow.png"
-                class="post-activity-arrow-icon"
-              />
+              <img src="images/down-arrow.png" class="post-activity-arrow-icon" />
             </div>
             <div class="post-activity-link">
               <img src="images/like.png" />
@@ -315,7 +306,6 @@
             all major search engines then you are ahead among your competitors.
           </p>
           <img src="images/post-image-4.png" width="100%" />
-
           <div class="post-stats">
             <div>
               <img src="images/thumbsup.png" />
@@ -330,10 +320,7 @@
           <div class="post-activity">
             <div>
               <img src="images/user-1.png" class="post-activity-user-icon" />
-              <img
-                src="images/down-arrow.png"
-                class="post-activity-arrow-icon"
-              />
+              <img src="images/down-arrow.png" class="post-activity-arrow-icon" />
             </div>
             <div class="post-activity-link">
               <img src="images/like.png" />
@@ -435,7 +422,6 @@
         postTextarea.style.display = 'block';
         postBtn.classList.remove('hidden');
         postTextarea.focus();
-        // slide main content and right sidebar together
         const contentArea = document.querySelector('.content-area');
         if (contentArea) {
           const leftSidebar = document.querySelector('.left-sidebar');
@@ -513,11 +499,9 @@
         createPostEl.insertAdjacentHTML('afterend', postHtml);
         postTextarea.value = '';
         postTextarea.focus();
-        // collapse create UI
         createPostWrapper.classList.remove('expanded');
         postTextarea.style.display = 'none';
         postBtn.classList.add('hidden');
-        // remove slide
         const contentArea = document.querySelector('.content-area');
         if (contentArea) {
           contentArea.classList.remove('shifted');
@@ -525,7 +509,6 @@
         }
       }
 
-      // Simple HTML escape to avoid injecting raw HTML
       function escapeHtml(str) {
         return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
       }
