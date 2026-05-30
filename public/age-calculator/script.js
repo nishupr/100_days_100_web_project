@@ -236,6 +236,18 @@ class AgeCalculator {
     document.getElementById('sleep-time').textContent = sleepTime;
     document.getElementById('milestones-list').innerHTML = milestonesHtml;
 
+    // Chinese Zodiac Update
+    const chineseZodiac = this.getChineseZodiac(birthDate.getFullYear());
+    document.getElementById('chinese-zodiac-sign').textContent = chineseZodiac.emoji;
+    document.getElementById('chinese-zodiac-name').textContent = chineseZodiac.name;
+
+    // Cosmic Planet Ages Update
+    document.getElementById('age-mercury').textContent = (totalDays / 87.97).toFixed(2);
+    document.getElementById('age-venus').textContent = (totalDays / 224.7).toFixed(2);
+    document.getElementById('age-mars').textContent = (totalDays / 686.98).toFixed(2);
+    document.getElementById('age-jupiter').textContent = (totalDays / 4332.59).toFixed(2);
+    document.getElementById('age-saturn').textContent = (totalDays / 10759.22).toFixed(2);
+
     document.getElementById('result').style.display = 'block';
   }
 
