@@ -2400,17 +2400,17 @@
   },
   {
     "projectNo": 193,
-    "projectName": "Theme-Toggler",
-    "projectType": "UI / Animation",
-    "projectDesc": "A responsive theme toggler that switches between light and dark modes and saves the user's preference using localStorage.",
-    "techStack": [
-      "react",
-      "tailwindcss",
+    "projectName": "Escape Room",
+    "projectType": "Game",
+    "projectDesc": "A thrilling escape room experience in your browser.",
+     "techStack": [
+      "html",
+      "css",
       "javascript"
     ],
-    "difficulty": "advanced",
-    "projectPath": "./public/Theme-toggler/src/App.jsx"
-  },
+    "difficulty": "intermediate",
+    "projectPath": "./public/Escape_Room/index.html"
+   },
   {
     "projectNo": 194,
     "projectName": "Lost & Found Portal",
@@ -2436,5 +2436,18 @@
     ],
     "difficulty": "advanced",
     "projectPath": "./public/Complaint_Management_System/index.html"
-  }
+  },
+  {
+    "projectNo": 196,
+    "projectName": "Theme-Toggler",
+    "projectType": "UI / Animation",
+    "projectDesc": "A responsive theme toggler that switches between light and dark modes and saves the user's preference using localStorage.",
+    "techStack": [
+      "react",
+      "tailwindcss",
+      "javascript"
+    ],
+    "difficulty": "advanced",
+    "projectPath": "./public/Theme-toggler/src/App.jsx"
+  },
 ]
