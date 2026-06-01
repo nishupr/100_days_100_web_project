@@ -84,13 +84,13 @@ function applyTimeBasedTheme() {
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("dark-mode-toggle");
   if (btn) btn.textContent = isDarkMode ? "☀️" : "🌙";
-  applyDarkMode(isDarkMode);
-  
-  if (typeof setTheme === "function") {
+ applyDarkMode(isDarkMode);
+
+if (typeof setTheme === "function") {
   setTheme(activeTheme);
 }
 
-  formatToggleBtn.textContent = is24HourFormat ? "12H" : "24H";
+formatToggleBtn.textContent = is24HourFormat ? "12H" : "24H";
 
   populateTimezoneDropdown();
   renderAlarmsList();
